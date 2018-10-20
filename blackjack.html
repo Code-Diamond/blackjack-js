@@ -1,16 +1,15 @@
 <html>
 <head>
 <style>
-	#myCanvas{
-		/*width:100%;*/
-		/*height:100%;*/
-	}
+
 </style>
 
 <script>
 	var w = window.innerWidth;
 	var h = window.innerHeight;
-
+	var fontMultiplier = ""+w/30;
+	var secondFontMultiplier = ""+w/50;
+	var cardSpacingMultipler = w/15;
 </script>
 </head>
 <body>
@@ -35,10 +34,59 @@
 		draw.stroke();
 		draw.beginPath();
 
-		draw.font = "40px Cursive";
+		draw.font = fontMultiplier+"px Cursive";
 		draw.fillStyle = "white";
 		draw.textAlign = "center";
 		draw.fillText("Blackjack", w/2, h/2); 
+		draw.beginPath();
+
+		for(var i =0; i<13; i++)
+		{
+		var j = getCardDetails(genRandomNumber());
+		drawCard(cardSpacingMultipler*i,j);
+		}
+
+
+		function drawCard(x,i)
+		{
+			draw.fillStyle = "#dee5ef";
+			draw.fillRect((w/5)-(w/7)+x,(h/2)+(w/20),(w/15),(h/5));
+			draw.lineWidth="3"
+			draw.strokeStyle="black";
+			draw.rect((w/5)-(w/7)+x,(h/2)+(w/20),(w/15),(h/5));
+			draw.stroke();
+			draw.beginPath();
+			
+			//For now just write card detail
+			if(i=="Queen" || i=="King" || i=="Jack" || i=="Ace" )
+			{
+				draw.font = (secondFontMultiplier)+"px Cursive";
+			}else{
+				draw.font = fontMultiplier+"px Cursive";
+			}
+			
+
+			draw.fillStyle = "black";
+			draw.textAlign = "center";
+			draw.fillText(i, (w/4.3)-(w/7)+x,(h/1.62)+(w/20)); 			
+			draw.beginPath();
+		}
+
+		function genRandomNumber()
+		{
+			return Math.floor((Math.random() * 52) + 1);
+		}
+
+		function getCardDetails(x)
+		{
+
+			switch(x){case 1: return "Ace"; case 2: return "Ace"; case 3: return "Ace"; case 4: return "Ace"; case 5: return "2"; case 6: return "2"; case 7: return "2"; case 8: return "2"; case 9: return "3"; case 10: return "3"; case 11: return "3"; case 12: return "3"; case 13: return "4"; case 14: return "4"; case 15: return "4"; case 16: return "4"; case 17: return "5"; case 18: return "5"; case 19: return "5"; case 20: return "5"; case 21: return "6"; case 22: return "6"; case 23: return "6"; case 24: return "6"; case 25: return "7"; case 26: return "7"; case 27: return "7"; case 28: return "7"; case 29: return "8"; case 30: return "8"; case 31: return "8"; case 32: return "8"; case 33: return "9"; case 34: return "9"; case 35: return "9"; case 36: return "9"; case 37: return "10"; case 38: return "10"; case 39: return "10"; case 40: return "10"; case 41: return "Jack"; case 42: return "Jack"; case 43: return "Jack"; case 44: return "Jack"; case 45: return "Queen"; case 46: return "Queen"; case 47: return "Queen"; case 48: return "Queen"; case 49: return "King"; case 50: return "King"; case 51: return "King"; case 52: return "King"; default: return ""; }
+		}
+		function getCardWeight(x){
+			switch(x){
+				case 1: return 11; case 2: return 11; case 3: return 11; case 4: return 11; case 5: return 2; case 6: return 2; case 7: return 2; case 8: return 2; case 9: return 3; case 10: return 3; case 11: return 3; case 12: return 3; case 13: return 4; case 14: return 4; case 15: return 4; case 16: return 4; case 17: return 5; case 18: return 5; case 19: return 5; case 20: return 5; case 21: return 6; case 22: return 6; case 23: return 6; case 24: return 6; case 25: return 7; case 26: return 7; case 27: return 7; case 28: return 7; case 29: return 8; case 30: return 8; case 31: return 8; case 32: return 8; case 33: return 9; case 34: return 9; case 35: return 9; case 36: return 9; case 37: return 10; case 38: return 10; case 39: return 10; case 40: return 10; case 41: return 10; case 42: return 10; case 43: return 10; case 44: return 10; case 45: return 10; case 46: return 10; case 47: return 10; case 48: return 10; case 49: return 10; case 50: return 10; case 51: return 10; case 52: return 10; default: return 0;}
+		}
+
 	</script>
 
 </body>
