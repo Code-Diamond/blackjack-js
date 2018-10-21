@@ -12,6 +12,7 @@ var gameStarted = false;
 var hands = [[]];
 var handsTotals = [];
 handsTotals[0] = 0; handsTotals[1] = 0; handsTotals[2] = 0; handsTotals[3] = 0;
+var numberOfAces=0;
 numberOfPlayerCards=0;
 cardPosition=10;
 
@@ -32,6 +33,7 @@ function getMousePos(canvas, evt) {
 	  y: evt.clientY - rect.top
 	};
 }
+
 //Writes to console
 function writeMessage(message) {
 	console.log(message)
@@ -48,10 +50,33 @@ myCanvas.addEventListener('click', function(event) {
     {
     	startGame();
     	gameStarted = true;
+    	drawHitStay();
     }
-   	else
+   	else//Game has started
    	{
-   		drawPlayerCard(0, numberOfPlayerCards);
+   		//Detect Hit hit box
+   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
+   		{
+	   		drawPlayerCard(0, numberOfPlayerCards);
+			if(handsTotals[0]>21){
+				if(numberOfAces>=1){
+					handsTotals[0]-=10;
+					numberOfAces--;
+					writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
+
+				}
+				else{
+					writeMessage("Busted");
+				}	
+			}
+   		}
+   		//Detect Stay hit box
+   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
+   		{
+   			writeMessage("Staying");
+   		}
+
+
    	}
 
 }, false);
@@ -96,10 +121,10 @@ function drawCard(x,i)
 
 	//Draw card
 	draw.fillStyle = "#dee5ef";
-	draw.fillRect((w/5)-(w/7)+x,(h/2)+(w/20),(w/15),(h/5));
+	draw.fillRect((w/18)+x,(h/1.665),(w/15),(h/5));
 	draw.lineWidth="3"
 	draw.strokeStyle="black";
-	draw.rect((w/5)-(w/7)+x,(h/2)+(w/20),(w/15),(h/5));
+	draw.rect((w/18)+x,(h/1.665),(w/15),(h/5));
 	draw.stroke();
 	draw.save();
 	
@@ -118,7 +143,7 @@ function drawCard(x,i)
 	//Write Card Letter
 	draw.font = fontMultiplier+"px Cursive";
 	draw.textAlign = "center";
-	draw.fillText(i, (w/4.7)-(w/7)+x,(h/1.85)+(w/20)); 			
+	draw.fillText(i, (w/14)+x, (h/1.55)); 			
 	draw.save();
 
 	//Write Card Letter Bottom Right Upside Down
@@ -127,7 +152,7 @@ function drawCard(x,i)
 	draw.textAlign = "center";
     draw.translate(20, 50);
 	draw.rotate(180 * Math.PI / 180);
-	draw.fillText(i, (w/8.4)-(w/4.7)-x,-(h/1.75)-(w/20)); 			
+	draw.fillText(i, -(w/11)-x,-(h/1.45)); 			
 	draw.restore();
 
 	//Write Card Suit
@@ -138,13 +163,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
-		draw.fillText("\u2660", (w/4.68)-(w/7)+x,(h/1.725)+(w/20)); 			
+		draw.fillText("\u2660", (w/14)+x,(h/1.45)); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2660", (w/8.3)-(w/4.7)-x,-(h/1.875)-(w/20)); 			
+		draw.fillText("\u2660", -(w/11)-x,-(h/1.55)); 			
 		draw.restore();
 	}
 	if(suit==2)
@@ -153,13 +178,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
-		draw.fillText("\u2666", (w/4.68)-(w/7)+x,(h/1.725)+(w/20)); 			
+		draw.fillText("\u2666", (w/14)+x,(h/1.45)); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2666", (w/8.3)-(w/4.7)-x,-(h/1.875)-(w/20)); 			
+		draw.fillText("\u2666", -(w/11)-x,-(h/1.55)); 			
 		draw.restore();
 	}
 	if(suit==3)
@@ -168,13 +193,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
-		draw.fillText("\u2663", (w/4.68)-(w/7)+x,(h/1.725)+(w/20)); 			
+		draw.fillText("\u2663", (w/14)+x,(h/1.45)); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2663", (w/8.3)-(w/4.7)-x,-(h/1.875)-(w/20)); 			
+		draw.fillText("\u2663", -(w/11)-x,-(h/1.55)); 			
 		draw.restore();
 	}
 	if(suit==4)
@@ -183,13 +208,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
-		draw.fillText("\u2764", (w/4.68)-(w/7)+x,(h/1.725)+(w/20)); 			
+		draw.fillText("\u2764", (w/14)+x,(h/1.45)); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2764", (w/8.3)-(w/4.7)-x,-(h/1.875)-(w/20)); 			
+		draw.fillText("\u2764", -(w/11)-x,-(h/1.55)); 			
 		draw.restore();
 	}
 	draw.save();
@@ -199,6 +224,43 @@ function genRandomNumber()
 {
 	return Math.floor((Math.random() * 52) + 1);
 }
+//Draws hit or stay buttons
+function drawHitStay()
+{
+	//Hit Button
+	draw.beginPath();
+	draw.fillStyle = "red";
+	draw.fillRect((w/14),(h/1.665),(w/12),(h/5));
+	draw.lineWidth="3"
+	draw.strokeStyle="black";
+	draw.rect((w/14),(h/1.665),(w/12),(h/5));
+	draw.stroke();
+	draw.save();	
+	//Hit Text
+	draw.beginPath();
+	draw.font = (fontMultiplier)+"px Cursive";
+	draw.fillStyle = "white";
+	draw.textAlign = "center";
+	draw.fillText("HIT", (w/8.8),(h/1.4)); 			
+	draw.save()
+	//Stay Button
+	draw.beginPath();
+	draw.fillStyle = "blue";
+	draw.fillRect((w/6),(h/1.665),(w/12),(h/5));
+	draw.lineWidth="3"
+	draw.strokeStyle="black";
+	draw.rect((w/6),(h/1.665),(w/12),(h/5));
+	draw.stroke();
+	draw.save();
+	//Stay Text
+	draw.beginPath();
+	draw.font = (fontMultiplier)+"px Cursive";
+	draw.fillStyle = "white";
+	draw.textAlign = "center";
+	draw.fillText("STAY", (w/4.8),(h/1.4)); 			
+	draw.save()			
+}
+
 //Returns card initials
 function getCardDetails(x)
 {
@@ -213,23 +275,20 @@ function getCardWeight(x){
 function drawPlayerCard(hand, cardInHand){
 	hands[hand][cardInHand] = genRandomNumber();
 	handsTotals[hand] +=  getCardWeight(hands[hand][cardInHand]);
+	if(getCardWeight(hands[hand][cardInHand]) == 11)
+	{
+		numberOfAces++;
+	}
 	drawCard(cardSpacingMultipler*cardPosition, getCardDetails(hands[hand][cardInHand]));
 	numberOfPlayerCards++;
 	cardPosition++;
 	console.log("Total:" + handsTotals[0])
 }
 function startGame(){
-	drawPlayerCard(0,numberOfPlayerCards);
-	drawPlayerCard(0,numberOfPlayerCards);
 	console.log("Game Started!");
+	drawPlayerCard(0,numberOfPlayerCards);
+	drawPlayerCard(0,numberOfPlayerCards);
 }
 
 setupCanvas();
 drawPokerTable();
-//draws 13 cards
-// for(var i =0; i<13; i++)
-// {
-// 	var j = getCardDetails(genRandomNumber());
-// 	drawCard(cardSpacingMultipler*i,j);
-// }
-
