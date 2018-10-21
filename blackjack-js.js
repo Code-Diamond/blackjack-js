@@ -198,7 +198,7 @@ function setupCanvas()
 function drawPokerTable()
 {
 	draw.beginPath();
-	draw.ellipse(w/2, h/2, w/3, h/3, 0, 0, Math.PI*2);
+	draw.ellipse(w/2, h/2, w, h, 0, 0, Math.PI*2);
 	draw.fillStyle="#004400";
 	draw.fill();
 	draw.strokeStyle="brown";
@@ -206,17 +206,18 @@ function drawPokerTable()
 	draw.stroke();
 	draw.save()
 
-	draw.beginPath();
-	draw.ellipse(w/2, h/2, w/6, h/6, 0, 0, Math.PI*2);
-	draw.lineWidth="3"
-	draw.stroke();
-	draw.save()
 	
 	draw.beginPath();
-	draw.font = fontMultiplier+"px Cursive";
+	draw.ellipse(w/2, h/16, w/3, h/1.2, 0, 0, Math.PI*2);
+	draw.lineWidth="3"
+	draw.stroke();
+	draw.save()	
+
+	draw.beginPath();
+	draw.font = fontMultiplier*2+"px Cursive";
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
-	draw.fillText("Blackjack", w/2, h/2); 
+	draw.fillText("BLACKJACK", w/2, h/2.15); 
 	draw.save()
 }
 //Draws a card
