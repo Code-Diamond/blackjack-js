@@ -13,10 +13,14 @@ var hands = [[]];
 var handsTotals = [];
 handsTotals[0] = 0; handsTotals[1] = 0; handsTotals[2] = 0; handsTotals[3] = 0;
 var numberOfAces=0;
-numberOfPlayerCards=0;
-cardPosition=10;
+var numberOfPlayerCards=0;
+var cardPosition=10;
 
-
+var dealerHand = [];
+var dealerHandTotal = 0;
+var dealerNumberOfAces = 0;
+var dealerCardPosition=10;
+var numberOfDealerCards=0;
 //Listens for mouse movement
 canvas.addEventListener('mousemove', function(evt) {
 	var mousePos = getMousePos(canvas, evt);
@@ -74,6 +78,7 @@ myCanvas.addEventListener('click', function(event) {
    		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
    		{
    			writeMessage("Staying");
+   			dealerPlay();
    		}
 
 
@@ -81,6 +86,10 @@ myCanvas.addEventListener('click', function(event) {
 
 }, false);
 
+function dealerPlay()
+{
+	drawDealerCard(numberOfDealerCards);
+}
 
 //draws canvas border, sets up width and height
 function setupCanvas()
@@ -115,16 +124,16 @@ function drawPokerTable()
 	draw.save()
 }
 //Draws a card
-function drawCard(x,i)
+function drawCard(x,y,i)
 {
 	draw.beginPath();
 
 	//Draw card
 	draw.fillStyle = "#dee5ef";
-	draw.fillRect((w/18)+x,(h/1.665),(w/15),(h/5));
+	draw.fillRect((w/18)+x,(h/1.665)+y,(w/15),(h/5));
 	draw.lineWidth="3"
 	draw.strokeStyle="black";
-	draw.rect((w/18)+x,(h/1.665),(w/15),(h/5));
+	draw.rect((w/18)+x,(h/1.665)+y,(w/15),(h/5));
 	draw.stroke();
 	draw.save();
 	
@@ -143,7 +152,7 @@ function drawCard(x,i)
 	//Write Card Letter
 	draw.font = fontMultiplier+"px Cursive";
 	draw.textAlign = "center";
-	draw.fillText(i, (w/14)+x, (h/1.55)); 			
+	draw.fillText(i, (w/14)+x, (h/1.55)+y); 			
 	draw.save();
 
 	//Write Card Letter Bottom Right Upside Down
@@ -152,7 +161,7 @@ function drawCard(x,i)
 	draw.textAlign = "center";
     draw.translate(20, 50);
 	draw.rotate(180 * Math.PI / 180);
-	draw.fillText(i, -(w/11)-x,-(h/1.45)); 			
+	draw.fillText(i, -(w/11)-x,-(h/1.45)-y); 			
 	draw.restore();
 
 	//Write Card Suit
@@ -163,13 +172,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
-		draw.fillText("\u2660", (w/14)+x,(h/1.45)); 			
+		draw.fillText("\u2660", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2660", -(w/11)-x,-(h/1.55)); 			
+		draw.fillText("\u2660", -(w/11)-x,-(h/1.55)-y); 			
 		draw.restore();
 	}
 	if(suit==2)
@@ -178,13 +187,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
-		draw.fillText("\u2666", (w/14)+x,(h/1.45)); 			
+		draw.fillText("\u2666", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2666", -(w/11)-x,-(h/1.55)); 			
+		draw.fillText("\u2666", -(w/11)-x,-(h/1.55)-y); 			
 		draw.restore();
 	}
 	if(suit==3)
@@ -193,13 +202,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
-		draw.fillText("\u2663", (w/14)+x,(h/1.45)); 			
+		draw.fillText("\u2663", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2663", -(w/11)-x,-(h/1.55)); 			
+		draw.fillText("\u2663", -(w/11)-x,-(h/1.55)-y); 			
 		draw.restore();
 	}
 	if(suit==4)
@@ -208,13 +217,13 @@ function drawCard(x,i)
 		draw.font = (secondFontMultiplier)+"px Cursive";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
-		draw.fillText("\u2764", (w/14)+x,(h/1.45)); 			
+		draw.fillText("\u2764", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
 		draw.beginPath();
 	    draw.translate(20, 50);
 		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2764", -(w/11)-x,-(h/1.55)); 			
+		draw.fillText("\u2764", -(w/11)-x,-(h/1.55)-y); 			
 		draw.restore();
 	}
 	draw.save();
@@ -279,10 +288,22 @@ function drawPlayerCard(hand, cardInHand){
 	{
 		numberOfAces++;
 	}
-	drawCard(cardSpacingMultipler*cardPosition, getCardDetails(hands[hand][cardInHand]));
+	drawCard(cardSpacingMultipler*cardPosition, 0, getCardDetails(hands[hand][cardInHand]));
 	numberOfPlayerCards++;
 	cardPosition++;
-	console.log("Total:" + handsTotals[0])
+	console.log("Total:" + handsTotals[0]);
+}
+function drawDealerCard(cardInHand){
+	dealerHand[cardInHand] = genRandomNumber();
+	dealerHandTotal += getCardWeight(dealerHand[cardInHand]);
+	if(getCardWeight(dealerHand[cardInHand]) == 11)
+	{
+		dealerNumberOfAces++;
+	}
+	drawCard(cardSpacingMultipler*dealerCardPosition, -(h/2), getCardDetails(dealerHand[cardInHand]));
+	numberOfDealerCards++;
+	dealerCardPosition++;
+	console.log("Dealer Total:"+dealerHandTotal);
 }
 function startGame(){
 	console.log("Game Started!");
