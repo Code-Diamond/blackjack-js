@@ -6,7 +6,6 @@ var cardSpacingMultipler = w/30;
 
 var canvas = document.getElementById('myCanvas');
 var draw = document.getElementById("myCanvas").getContext("2d");
-
 var gameStarted = false;
 var gameOver = false;
 
@@ -44,6 +43,45 @@ function writeMessage(message) {
 	console.log(message)
 }      
 
+function writeBustMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/6)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText("BUSTED!", (w/2), (h/2)); 			
+	draw.save();	
+}
+function writeWinMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/6)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText("WINNER!", (w/2), (h/2)); 			
+	draw.save();	
+}
+function writeLoseMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/6)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText("You lose.", (w/2), (h/2)); 			
+	draw.save();	
+}
+function writeTieMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/6)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText("Tie Game.", (w/2), (h/2)); 			
+	draw.save();	
+}
+
+
+
 //Listens and Detects click location
 myCanvas.addEventListener('click', function(event) {
     var rect = myCanvas.getBoundingClientRect();
@@ -64,15 +102,30 @@ myCanvas.addEventListener('click', function(event) {
 	   		//Detect Hit hit box
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
 	   		{
+	   			if(handsTotals[0]==21){
+	   				writeWinMessage();
+	   				gameOver=true;
+	   			}
+
 		   		drawPlayerCard(0, numberOfPlayerCards);
+
+	   			if(handsTotals[0]==21){
+	   				writeWinMessage();
+	   				gameOver=true;
+	   			}
+
 				if(handsTotals[0]>21){
 					if(numberOfAces>=1){
 						handsTotals[0]-=10;
 						numberOfAces--;
 						writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
+						if(handsTotals[0]==21){
+			   				writeWinMessage();
+			   				gameOver=true;
+			   			}
 					}
 					else{
-						writeMessage("Busted");
+						writeBustMessage();
 						gameOver = true;
 					}	
 				}
@@ -106,24 +159,24 @@ function dealerPlay()
 			return;
 		}
 		else{
-			console.log("Dealer busted\nYou Win!");
+			writeWinMessage();
 			gameOver = true;
 			return;	
 		}
 	}
 	else{
 		if(handsTotals[0] > dealerHandTotal){
-			console.log("You win!");
+			writeWinMessage();
 			gameOver = true;
 			return;
 		}
 		if(handsTotals[0] < dealerHandTotal){
-			console.log("You lose!");
+			writeLoseMessage();
 			gameOver = true;
 			return;
 		}
 		else{
-			console.log("Tie game!");
+			writeTieMessage();
 			gameOver = true;
 			return;
 		}
@@ -138,6 +191,8 @@ function setupCanvas()
 	document.getElementById("myCanvas").style.border = "Solid 2px Grey";
 	document.getElementById("myCanvas").setAttribute('width', w-20);
 	document.getElementById("myCanvas").setAttribute('height', h-20);			
+	draw.fillStyle = "black";
+	draw.fillRect(0, 0, w, h);
 }
 //draws poker table
 function drawPokerTable()
@@ -353,7 +408,7 @@ function startGame(){
 	drawDealerCard(numberOfDealerCards);
 	if(handsTotals[0]==21)
 	{
-		console.log("YOU WIN");
+		writeWinMessage();
 		gameOver = true;
 
 	}
