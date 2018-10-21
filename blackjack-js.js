@@ -8,6 +8,7 @@ var canvas = document.getElementById('myCanvas');
 var draw = document.getElementById("myCanvas").getContext("2d");
 
 var gameStarted = false;
+var gameOver = false;
 
 var hands = [[]];
 var handsTotals = [];
@@ -58,37 +59,77 @@ myCanvas.addEventListener('click', function(event) {
     }
    	else//Game has started
    	{
-   		//Detect Hit hit box
-   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
+   		if(!gameOver)
    		{
-	   		drawPlayerCard(0, numberOfPlayerCards);
-			if(handsTotals[0]>21){
-				if(numberOfAces>=1){
-					handsTotals[0]-=10;
-					numberOfAces--;
-					writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
-
+	   		//Detect Hit hit box
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
+	   		{
+		   		drawPlayerCard(0, numberOfPlayerCards);
+				if(handsTotals[0]>21){
+					if(numberOfAces>=1){
+						handsTotals[0]-=10;
+						numberOfAces--;
+						writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
+					}
+					else{
+						writeMessage("Busted");
+						gameOver = true;
+					}	
 				}
-				else{
-					writeMessage("Busted");
-				}	
-			}
+	   		}
+	   		//Detect Stay hit box
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
+	   		{
+	   			writeMessage("Staying");
+	   			dealerPlay();
+	   		}
    		}
-   		//Detect Stay hit box
-   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
-   		{
-   			writeMessage("Staying");
-   			dealerPlay();
-   		}
-
-
    	}
 
 }, false);
 
 function dealerPlay()
 {
-	drawDealerCard(numberOfDealerCards);
+	if(dealerHandTotal < 17){
+		drawDealerCard(numberOfDealerCards);
+		// displayHandValues();
+		dealerPlay();
+		return;		
+	}
+	if(dealerHandTotal > 21){
+		if(dealerNumberOfAces>=1){
+			dealerHandTotal-=10;
+			dealerNumberOfAces--;
+			console.log( "\nDealer swaps the Ace's value to a 1.\n\n"); 
+			console.log("Dealer Total:"+dealerHandTotal);
+			dealerPlay();
+			return;
+		}
+		else{
+			console.log("Dealer busted\nYou Win!");
+			gameOver = true;
+			return;	
+		}
+	}
+	else{
+		if(handsTotals[0] > dealerHandTotal){
+			console.log("You win!");
+			gameOver = true;
+			return;
+		}
+		if(handsTotals[0] < dealerHandTotal){
+			console.log("You lose!");
+			gameOver = true;
+			return;
+		}
+		else{
+			console.log("Tie game!");
+			gameOver = true;
+			return;
+		}
+	}
+
+
 }
 
 //draws canvas border, sets up width and height
@@ -309,6 +350,14 @@ function startGame(){
 	console.log("Game Started!");
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawPlayerCard(0,numberOfPlayerCards);
+	drawDealerCard(numberOfDealerCards);
+	if(handsTotals[0]==21)
+	{
+		console.log("YOU WIN");
+		gameOver = true;
+
+	}
+
 }
 
 setupCanvas();
