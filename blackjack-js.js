@@ -192,7 +192,7 @@ myCanvas.addEventListener('click', function(event) {
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
 	   		{
 	   			writeMessage("Staying");
-	   			dealerPlay();
+	   			setTimeout(dealerPlay,200);
 	   		}
    		}
    	}
@@ -204,7 +204,7 @@ function dealerPlay()
 	if(dealerHandTotal < 17){
 		drawDealerCard(numberOfDealerCards);
 		// displayHandValues();
-		dealerPlay();
+	   	setTimeout(dealerPlay,1000);
 		return;		
 	}
 	if(dealerHandTotal > 21){
@@ -213,7 +213,7 @@ function dealerPlay()
 			dealerNumberOfAces--;
 			console.log( "\nDealer swaps the Ace's value to a 1.\n\n"); 
 			console.log("Dealer Total:"+dealerHandTotal);
-			dealerPlay();
+	   		setTimeout(dealerPlay,1000);
 			return;
 		}
 		else{
@@ -253,7 +253,6 @@ function setupCanvas()
 //draws poker table
 function drawPokerTable()
 {
-
 	draw.beginPath();
 	draw.ellipse(w/2, h/2, w, h, 0, 0, Math.PI*2);
 	draw.fillStyle="#082d00";
