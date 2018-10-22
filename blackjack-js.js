@@ -235,7 +235,7 @@ function drawCard(x,y,i)
 	draw.save();
 	
 	draw.beginPath();
-	var suit = Math.floor((Math.random() * 4) + 1);
+	var suit = getCardSuit(i);
 	//Card Letter Color from suit
 	if(suit%2==0)
 	{
@@ -249,7 +249,7 @@ function drawCard(x,y,i)
 	//Write Card Letter
 	draw.font = fontMultiplier+"px Cursive";
 	draw.textAlign = "center";
-	draw.fillText(i, (w/14)+x, (h/1.55)+y); 			
+	draw.fillText(getCardDetails(i), (w/14)+x, (h/1.55)+y); 			
 	draw.save();
 
 	//Write Card Letter Bottom Right Upside Down
@@ -258,7 +258,7 @@ function drawCard(x,y,i)
 	draw.textAlign = "center";
     draw.translate(20, 50);
 	draw.rotate(180 * Math.PI / 180);
-	draw.fillText(i, -(w/11)-x,-(h/1.45)-y); 			
+	draw.fillText(getCardDetails(i), -(w/11)-x,-(h/1.45)-y); 			
 	draw.restore();
 
 	//Write Card Suit
@@ -370,13 +370,18 @@ function drawHitStay()
 //Returns card initials
 function getCardDetails(x)
 {
-
 	switch(x){case 1: return "A"; case 2: return "A"; case 3: return "A"; case 4: return "A"; case 5: return "2"; case 6: return "2"; case 7: return "2"; case 8: return "2"; case 9: return "3"; case 10: return "3"; case 11: return "3"; case 12: return "3"; case 13: return "4"; case 14: return "4"; case 15: return "4"; case 16: return "4"; case 17: return "5"; case 18: return "5"; case 19: return "5"; case 20: return "5"; case 21: return "6"; case 22: return "6"; case 23: return "6"; case 24: return "6"; case 25: return "7"; case 26: return "7"; case 27: return "7"; case 28: return "7"; case 29: return "8"; case 30: return "8"; case 31: return "8"; case 32: return "8"; case 33: return "9"; case 34: return "9"; case 35: return "9"; case 36: return "9"; case 37: return "10"; case 38: return "10"; case 39: return "10"; case 40: return "10"; case 41: return "J"; case 42: return "J"; case 43: return "J"; case 44: return "J"; case 45: return "Q"; case 46: return "Q"; case 47: return "Q"; case 48: return "Q"; case 49: return "K"; case 50: return "K"; case 51: return "K"; case 52: return "K"; default: return ""; }
 }
 //Returns card value
 function getCardWeight(x){
 	switch(x){
 		case 1: return 11; case 2: return 11; case 3: return 11; case 4: return 11; case 5: return 2; case 6: return 2; case 7: return 2; case 8: return 2; case 9: return 3; case 10: return 3; case 11: return 3; case 12: return 3; case 13: return 4; case 14: return 4; case 15: return 4; case 16: return 4; case 17: return 5; case 18: return 5; case 19: return 5; case 20: return 5; case 21: return 6; case 22: return 6; case 23: return 6; case 24: return 6; case 25: return 7; case 26: return 7; case 27: return 7; case 28: return 7; case 29: return 8; case 30: return 8; case 31: return 8; case 32: return 8; case 33: return 9; case 34: return 9; case 35: return 9; case 36: return 9; case 37: return 10; case 38: return 10; case 39: return 10; case 40: return 10; case 41: return 10; case 42: return 10; case 43: return 10; case 44: return 10; case 45: return 10; case 46: return 10; case 47: return 10; case 48: return 10; case 49: return 10; case 50: return 10; case 51: return 10; case 52: return 10; default: return 0;}
+}
+//Returns card suit
+function getCardSuit(x)
+{
+
+	switch(x){case 1: return "1"; case 2: return "2"; case 3: return "3"; case 4: return "4"; case 5: return "1"; case 6: return "2"; case 7: return "3"; case 8: return "4"; case 9: return "1"; case 10: return "2"; case 11: return "3"; case 12: return "4"; case 13: return "1"; case 14: return "2"; case 15: return "3"; case 16: return "4"; case 17: return "1"; case 18: return "2"; case 19: return "3"; case 20: return "4"; case 21: return "1"; case 22: return "2"; case 23: return "3"; case 24: return "4"; case 25: return "1"; case 26: return "2"; case 27: return "3"; case 28: return "4"; case 29: return "1"; case 30: return "2"; case 31: return "3"; case 32: return "4"; case 33: return "1"; case 34: return "2"; case 35: return "3"; case 36: return "4"; case 37: return "1"; case 38: return "2"; case 39: return "3"; case 40: return "4"; case 41: return "1"; case 42: return "2"; case 43: return "3"; case 44: return "4"; case 45: return "1"; case 46: return "2"; case 47: return "3"; case 48: return "4"; case 49: return "1"; case 50: return "2"; case 51: return "3"; case 52: return "4"; default: return ""; }
 }
 function drawPlayerCard(hand, cardInHand){
 	hands[hand][cardInHand] = genRandomNumber();
@@ -385,7 +390,7 @@ function drawPlayerCard(hand, cardInHand){
 	{
 		numberOfAces++;
 	}
-	drawCard(cardSpacingMultipler*cardPosition, 0, getCardDetails(hands[hand][cardInHand]));
+	drawCard(cardSpacingMultipler*cardPosition, 0, hands[hand][cardInHand]);
 	numberOfPlayerCards++;
 	cardPosition++;
 	console.log("Total:" + handsTotals[0]);
@@ -397,7 +402,7 @@ function drawDealerCard(cardInHand){
 	{
 		dealerNumberOfAces++;
 	}
-	drawCard(cardSpacingMultipler*dealerCardPosition, -(h/2), getCardDetails(dealerHand[cardInHand]));
+	drawCard(cardSpacingMultipler*dealerCardPosition, -(h/2), dealerHand[cardInHand]);
 	numberOfDealerCards++;
 	dealerCardPosition++;
 	console.log("Dealer Total:"+dealerHandTotal);
@@ -416,5 +421,32 @@ function startGame(){
 
 }
 
+function resizeWindow(){
+	w = window.innerWidth;
+	h = window.innerHeight;	
+	draw.clearRect(0, 0, w, h);
+	document.getElementById("myCanvas").setAttribute('width', w-20);
+	document.getElementById("myCanvas").setAttribute('height', h-20);			
+	fontMultiplier = ""+w/40;
+	secondFontMultiplier = ""+w/50;
+	cardSpacingMultipler = w/30;
+
+
+	drawPokerTable();
+	var j = 10;
+	for(var i = 0; i < numberOfPlayerCards; i++)
+	{
+		drawCard(cardSpacingMultipler*j, 0, hands[0][i]);
+		j++;
+	}
+	j=10
+	for(var i = 0; i < numberOfDealerCards; i++)
+	{
+		drawCard(cardSpacingMultipler*j, -(h/2), dealerHand[i]);
+		j++;
+	}
+
+	drawHitStay();
+}
 setupCanvas();
 drawPokerTable();
