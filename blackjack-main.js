@@ -126,9 +126,9 @@ function drawDealerCard(cardInHand){
 //Start the game
 function startGame(){
 	console.log("Game Started!");
-	drawPlayerCard(0,numberOfPlayerCards);
-	drawPlayerCard(0,numberOfPlayerCards);
-	drawDealerCard(numberOfDealerCards);
+	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 1000);
+	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 2000);
+	setTimeout(function() {drawDealerCard(numberOfDealerCards);}, 3000);
 	if(handsTotals[0]==21)
 	{
 		writeWinMessage();

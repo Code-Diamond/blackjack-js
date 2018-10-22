@@ -27,7 +27,7 @@ myCanvas.addEventListener('click', function(event) {
     {
     	startGame();
     	gameStarted = true;
-    	drawHitStay();
+    	setTimeout(drawHitStay, 3000);
     }
 	//Game has started    
    	else
@@ -43,7 +43,7 @@ myCanvas.addEventListener('click', function(event) {
 	   				gameOver=true;
 	   			}
 	   			//draw a card
-		   		drawPlayerCard(0, numberOfPlayerCards);
+		   		setTimeout(function() {drawPlayerCard(0, numberOfPlayerCards);
 	   			//if blackjack end the game		   			
 	   			if(handsTotals[0]==21){
 	   				writeWinMessage();
@@ -69,6 +69,7 @@ myCanvas.addEventListener('click', function(event) {
 						gameOver = true;
 					}	
 				}
+				},1000);
 	   		}
 	   		//Detect Stay hit box
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
