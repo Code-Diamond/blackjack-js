@@ -46,6 +46,13 @@ function writeMessage(message) {
 function writeBustMessage()
 {
 	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.8;
+	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
 	draw.fillStyle = "yellow";
 	draw.font = (w/6)+"px Cursive";
 	draw.textAlign = "center";
@@ -54,6 +61,13 @@ function writeBustMessage()
 }
 function writeWinMessage()
 {
+	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.8;
+	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.globalAlpha = 1.0;
+	draw.save();
+
 	draw.beginPath();
 	draw.fillStyle = "yellow";
 	draw.font = (w/6)+"px Cursive";
@@ -64,6 +78,13 @@ function writeWinMessage()
 function writeLoseMessage()
 {
 	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.8;
+	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
 	draw.fillStyle = "yellow";
 	draw.font = (w/6)+"px Cursive";
 	draw.textAlign = "center";
@@ -73,14 +94,50 @@ function writeLoseMessage()
 function writeTieMessage()
 {
 	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.8;
+	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
 	draw.fillStyle = "yellow";
 	draw.font = (w/6)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("Tie Game.", (w/2), (h/2)); 			
 	draw.save();	
 }
+function writeGameFinishedMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.8;
+	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.globalAlpha = 1.0;
+	draw.save();
 
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/8)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText("Game Finished.", (w/2), (h/2)); 			
+	draw.save();	
+}
 
+function drawHandTotalBox()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.fillRect((w/14.2),(h/2),(w/11.7),(h/10))
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/20)+"px Cursive";
+	draw.textAlign = "center";
+	draw.fillText(handsTotals[0], (w/9), (h/1.72)); 			
+	draw.save();	
+}
 
 //Listens and Detects click location
 myCanvas.addEventListener('click', function(event) {
@@ -119,6 +176,7 @@ myCanvas.addEventListener('click', function(event) {
 						handsTotals[0]-=10;
 						numberOfAces--;
 						writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
+						drawHandTotalBox();
 						if(handsTotals[0]==21){
 			   				writeWinMessage();
 			   				gameOver=true;
@@ -181,8 +239,6 @@ function dealerPlay()
 			return;
 		}
 	}
-
-
 }
 
 //draws canvas border, sets up width and height
@@ -197,19 +253,17 @@ function setupCanvas()
 //draws poker table
 function drawPokerTable()
 {
+
 	draw.beginPath();
 	draw.ellipse(w/2, h/2, w, h, 0, 0, Math.PI*2);
-	draw.fillStyle="#004400";
+	draw.fillStyle="#082d00";
 	draw.fill();
-	draw.strokeStyle="brown";
-	draw.lineWidth="10"
-	draw.stroke();
-	draw.save()
+	draw.save();
 
-	
 	draw.beginPath();
-	draw.ellipse(w/2, h/16, w/3, h/1.2, 0, 0, Math.PI*2);
-	draw.lineWidth="3"
+	draw.strokeStyle="brown";
+	draw.lineWidth="2"
+	draw.arc(w/1.981, h/2.24, w/6, h/6,  0, Math.PI*2);
 	draw.stroke();
 	draw.save()	
 
@@ -335,7 +389,7 @@ function drawHitStay()
 {
 	//Hit Button
 	draw.beginPath();
-	draw.fillStyle = "red";
+	draw.fillStyle = "maroon";
 	draw.fillRect((w/14),(h/1.665),(w/12),(h/5));
 	draw.lineWidth="3"
 	draw.strokeStyle="black";
@@ -351,7 +405,7 @@ function drawHitStay()
 	draw.save()
 	//Stay Button
 	draw.beginPath();
-	draw.fillStyle = "blue";
+	draw.fillStyle = "darkblue";
 	draw.fillRect((w/6),(h/1.665),(w/12),(h/5));
 	draw.lineWidth="3"
 	draw.strokeStyle="black";
@@ -393,7 +447,8 @@ function drawPlayerCard(hand, cardInHand){
 	drawCard(cardSpacingMultipler*cardPosition, 0, hands[hand][cardInHand]);
 	numberOfPlayerCards++;
 	cardPosition++;
-	console.log("Total:" + handsTotals[0]);
+	// console.log("Total:" + handsTotals[0]);
+	drawHandTotalBox();
 }
 function drawDealerCard(cardInHand){
 	dealerHand[cardInHand] = genRandomNumber();
@@ -416,9 +471,7 @@ function startGame(){
 	{
 		writeWinMessage();
 		gameOver = true;
-
 	}
-
 }
 
 function resizeWindow(){
@@ -430,7 +483,6 @@ function resizeWindow(){
 	fontMultiplier = ""+w/40;
 	secondFontMultiplier = ""+w/50;
 	cardSpacingMultipler = w/30;
-
 
 	drawPokerTable();
 	var j = 10;
@@ -445,9 +497,16 @@ function resizeWindow(){
 		drawCard(cardSpacingMultipler*j, -(h/2), dealerHand[i]);
 		j++;
 	}
-
-	drawHitStay();
+	if(gameStarted)
+	{
+		drawHitStay();
+		drawHandTotalBox();
+	}
+	if(gameOver)
+	{
+		writeGameFinishedMessage();
+	}
 }
+
 setupCanvas();
 drawPokerTable();
-//
