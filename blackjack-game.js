@@ -82,6 +82,10 @@ myCanvas.addEventListener('click', function(event) {
 	   			// writeMessage("Staying");
 	   		}
    		}
+   		else
+   		{
+   			resetGame();
+   		}
    	}
 
 }, false);

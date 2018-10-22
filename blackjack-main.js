@@ -35,6 +35,44 @@ var waiting = false;
 
 //---------------------------------------------------------------------------------
 
+function resetGame()
+{
+	//Window height and width
+	w = window.innerWidth;
+	h = window.innerHeight;
+	fontMultiplier = ""+w/40;
+	secondFontMultiplier = ""+w/50;
+	cardSpacingMultipler = w/30;
+
+	//Game variables
+	gameStarted = false;
+	gameOver = false;
+
+	//Player's hands and hand totals
+	hands = [[]];
+	handsTotals = [];
+	handsTotals[0] = 0; handsTotals[1] = 0; handsTotals[2] = 0; handsTotals[3] = 0;
+	numberOfAces=0;
+	numberOfPlayerCards=0;
+	cardPosition=10;
+
+	//Dealer's hand and hand total
+	dealerHand = [];
+	dealerHandTotal = 0;
+	dealerNumberOfAces = 0;
+	dealerCardPosition=10;
+	numberOfDealerCards=0;
+
+
+	waiting = false;
+
+	setupCanvas();
+	drawPokerTable();	
+	document.getElementById('myCanvas').click();	
+	drawHandTotalBox();
+	drawDealerHandTotalBox();
+}
+
 //Generates a random number 1 to 52
 function genRandomNumber()
 {
@@ -88,6 +126,7 @@ function resizeWindow(){
 	{
 		drawHitStay();
 		drawHandTotalBox();
+		drawDealerHandTotalBox();
 	}
 	if(gameOver)
 	{
@@ -122,7 +161,8 @@ function drawDealerCard(cardInHand){
 	drawCard(cardSpacingMultipler*dealerCardPosition, -(h/2), dealerHand[cardInHand]);
 	numberOfDealerCards++;
 	dealerCardPosition++;
-	console.log("Dealer Total:"+dealerHandTotal);
+	// console.log("Dealer Total:"+dealerHandTotal);
+	drawDealerHandTotalBox();
 }
 
 //Start the game
@@ -131,6 +171,7 @@ function startGame(){
 	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 1000);
 	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 2000);
 	setTimeout(function() {drawDealerCard(numberOfDealerCards);}, 3000);
+	setTimeout(drawDealerHandTotalBox,3000);
 	if(handsTotals[0]==21)
 	{
 		writeWinMessage();

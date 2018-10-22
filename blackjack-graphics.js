@@ -1,5 +1,5 @@
 // 
-//TODO: consolidate messages, drawDealerHandTotalBox
+//TODO: consolidate messages
 // 
 function writeBustMessage()
 {
@@ -81,23 +81,43 @@ function writeGameFinishedMessage()
 	draw.fillText("Game Finished.", (w/2), (h/2)); 			
 	draw.save();	
 }
-// 
-//TODO: drawDealerHandTotalBox
-// 
+
 function drawHandTotalBox()
 {
-	draw.beginPath();
-	draw.fillStyle = "black";
-	draw.fillRect((w/14.2),(h/2),(w/11.7),(h/10))
-	draw.save();
-
-	draw.beginPath();
-	draw.fillStyle = "yellow";
-	draw.font = (w/20)+"px Cursive";
-	draw.textAlign = "center";
-	draw.fillText(handsTotals[0], (w/9), (h/1.72)); 			
-	draw.save();	
+	if(handsTotals[0] != 0)
+	{
+		draw.beginPath();
+		draw.fillStyle = "black";
+		draw.fillRect((w/3.5),(h/1.59),(w/11.7),(h/10))
+		draw.save();
+		
+		draw.beginPath();
+		draw.fillStyle = "yellow";
+		draw.font = (w/20)+"px Cursive";
+		draw.textAlign = "center";
+		draw.fillText(handsTotals[0], (w/3.05), (h/1.4)); 			
+		draw.save();		
+	}
 }
+
+function drawDealerHandTotalBox()
+{
+	if(dealerHandTotal != 0)
+	{
+		draw.beginPath();
+		draw.fillStyle = "black";
+		draw.fillRect((w/3.5),(h/6),(w/11.7),(h/10))
+		draw.save();		
+	
+		draw.beginPath();
+		draw.fillStyle = "yellow";
+		draw.font = (w/20)+"px Cursive";
+		draw.textAlign = "center";
+		draw.fillText(dealerHandTotal, (w/3.05), (h/4)); 			
+		draw.save();			
+	}
+}
+
 //draws canvas border, sets up width and height
 function setupCanvas()
 {
