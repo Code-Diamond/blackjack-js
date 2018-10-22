@@ -32,8 +32,9 @@ myCanvas.addEventListener('click', function(event) {
 	//Game has started    
    	else
    	{
-   		if(!gameOver)
+   		if(!gameOver && !waiting)
    		{
+   			waiting=true;
 	   		//Detect Hit hit box
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
 	   		{
@@ -44,39 +45,41 @@ myCanvas.addEventListener('click', function(event) {
 	   			}
 	   			//draw a card
 		   		setTimeout(function() {drawPlayerCard(0, numberOfPlayerCards);
-	   			//if blackjack end the game		   			
-	   			if(handsTotals[0]==21){
-	   				writeWinMessage();
-	   				gameOver=true;
-	   			}
-	   			//if bust end the game
-				if(handsTotals[0]>21){
-					//unless the player has an ace
-					if(numberOfAces>=1){
-						handsTotals[0]-=10;
-						numberOfAces--;
-						// writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
-						drawHandTotalBox();
-						//If the player wins after switching ace
-						if(handsTotals[0]==21){
-			   				writeWinMessage();
-			   				gameOver=true;
-			   			}
+		   			//if blackjack end the game		   			
+		   			if(handsTotals[0]==21){
+		   				writeWinMessage();
+		   				gameOver=true;
+		   			}
+		   			//if bust end the game
+					if(handsTotals[0]>21){
+						//unless the player has an ace
+						if(numberOfAces>=1){
+							handsTotals[0]-=10;
+							numberOfAces--;
+							// writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
+							drawHandTotalBox();
+							//If the player wins after switching ace
+							if(handsTotals[0]==21){
+				   				writeWinMessage();
+				   				gameOver=true;
+				   			}
+						}
+						//Busted
+						else{
+							writeBustMessage();
+							gameOver = true;
+						}	
 					}
-					//Busted
-					else{
-						writeBustMessage();
-						gameOver = true;
-					}	
-				}
+					waiting=false;
 				},1000);
+
 	   		}
 	   		//Detect Stay hit box
-	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 )
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975)
 	   		{
-	   			// writeMessage("Staying");
 	   			//Start the dealer play algorithm
 	   			setTimeout(dealerPlay,200);
+	   			// writeMessage("Staying");
 	   		}
    		}
    	}
@@ -86,6 +89,7 @@ myCanvas.addEventListener('click', function(event) {
 //Dealer draws until 17 or bust
 function dealerPlay()
 {
+	waiting=true;
 	if(dealerHandTotal < 17){
 		drawDealerCard(numberOfDealerCards);
 		// displayHandValues();
@@ -124,6 +128,7 @@ function dealerPlay()
 			return;
 		}
 	}
+	waiting=false;
 }
 
 

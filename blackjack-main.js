@@ -31,6 +31,8 @@ var dealerCardPosition=10;
 var numberOfDealerCards=0;
 
 
+var waiting = false;
+
 //---------------------------------------------------------------------------------
 
 //Generates a random number 1 to 52
