@@ -64,13 +64,13 @@ function resetGame()
 	numberOfDealerCards=0;
 
 
-	waiting = false;
 
 	setupCanvas();
 	drawPokerTable();	
 	document.getElementById('myCanvas').click();	
 	drawHandTotalBox();
 	drawDealerHandTotalBox();
+
 }
 
 //Generates a random number 1 to 52
@@ -168,10 +168,12 @@ function drawDealerCard(cardInHand){
 //Start the game
 function startGame(){
 	console.log("Game Started!");
+	waiting=true;
 	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 1000);
 	setTimeout(function() {drawPlayerCard(0,numberOfPlayerCards);}, 2000);
 	setTimeout(function() {drawDealerCard(numberOfDealerCards);}, 3000);
 	setTimeout(drawDealerHandTotalBox,3000);
+	setTimeout(function(){waiting=false;},3000)
 	if(handsTotals[0]==21)
 	{
 		writeWinMessage();

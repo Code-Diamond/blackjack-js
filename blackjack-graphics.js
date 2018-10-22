@@ -12,7 +12,7 @@ function writeBustMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/6)+"px Cursive";
+	draw.font = (w/12)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("BUSTED!", (w/2), (h/2)); 			
 	draw.save();	
@@ -28,7 +28,7 @@ function writeWinMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/6)+"px Cursive";
+	draw.font = (w/12)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("WINNER!", (w/2), (h/2)); 			
 	draw.save();	
@@ -44,7 +44,7 @@ function writeLoseMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/6)+"px Cursive";
+	draw.font = (w/12)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("You lose.", (w/2), (h/2)); 			
 	draw.save();	
@@ -60,7 +60,7 @@ function writeTieMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/6)+"px Cursive";
+	draw.font = (w/12)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("Tie Game.", (w/2), (h/2)); 			
 	draw.save();	
@@ -76,7 +76,7 @@ function writeGameFinishedMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/8)+"px Cursive";
+	draw.font = (w/12)+"px Cursive";
 	draw.textAlign = "center";
 	draw.fillText("Game Finished.", (w/2), (h/2)); 			
 	draw.save();	
@@ -289,5 +289,5 @@ function drawHitStay()
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
 	draw.fillText("STAY", (w/4.8),(h/1.4)); 			
-	draw.save()			
+	draw.save()		
 }

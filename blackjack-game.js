@@ -32,26 +32,30 @@ myCanvas.addEventListener('click', function(event) {
 	//Game has started    
    	else
    	{
-   		if(!gameOver && !waiting)
+   		if(!gameOver)
    		{
-   			waiting=true;
 	   		//Detect Hit hit box
-	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 )
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 &&!waiting)
 	   		{
+	   			waiting=true;
 	   			//if blackjack end the game
 	   			if(handsTotals[0]==21){
 	   				writeWinMessage();
 	   				gameOver=true;
+	   				waiting=false;
 	   			}
 	   			//draw a card
 		   		setTimeout(function() {drawPlayerCard(0, numberOfPlayerCards);
+		   			waiting=true;
 		   			//if blackjack end the game		   			
 		   			if(handsTotals[0]==21){
 		   				writeWinMessage();
 		   				gameOver=true;
+		   				waiting=false;
 		   			}
 		   			//if bust end the game
 					if(handsTotals[0]>21){
+						waiting=true;
 						//unless the player has an ace
 						if(numberOfAces>=1){
 							handsTotals[0]-=10;
@@ -62,21 +66,23 @@ myCanvas.addEventListener('click', function(event) {
 							if(handsTotals[0]==21){
 				   				writeWinMessage();
 				   				gameOver=true;
+				   				waiting=false;
 				   			}
 						}
 						//Busted
 						else{
 							writeBustMessage();
 							gameOver = true;
+							waiting=false;
 						}	
 					}
-					waiting=false;
 				},1000);
 
 	   		}
 	   		//Detect Stay hit box
-	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975)
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 &&!waiting)
 	   		{
+	   			waiting=true;
 	   			//Start the dealer play algorithm
 	   			setTimeout(dealerPlay,200);
 	   			// writeMessage("Staying");
@@ -112,6 +118,7 @@ function dealerPlay()
 		else{
 			writeWinMessage();
 			gameOver = true;
+			waiting=false;
 			return;	
 		}
 	}
@@ -119,20 +126,23 @@ function dealerPlay()
 		if(handsTotals[0] > dealerHandTotal){
 			writeWinMessage();
 			gameOver = true;
+			waiting=false;
 			return;
 		}
 		if(handsTotals[0] < dealerHandTotal){
 			writeLoseMessage();
 			gameOver = true;
+			waiting=false;
+
 			return;
 		}
 		else{
 			writeTieMessage();
 			gameOver = true;
+			waiting=false;
 			return;
 		}
 	}
-	waiting=false;
 }
 
 
