@@ -450,3 +450,4 @@ function resizeWindow(){
 }
 setupCanvas();
 drawPokerTable();
+//
