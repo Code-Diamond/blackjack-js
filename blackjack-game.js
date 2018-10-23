@@ -76,6 +76,7 @@ myCanvas.addEventListener('click', function(event) {
 							waiting=false;
 						}	
 					}
+					waiting=false;
 				},1000);
 
 	   		}
