@@ -1,21 +1,5 @@
 //User input and game rules are handled here
 
-//Listens for mouse movement
-canvas.addEventListener('mousemove', function(evt) {
-	var mousePos = getMousePos(canvas, evt);
-	var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
-	// writeMessage(message);
-}, false);
-
-//Detects Mouse location
-function getMousePos(canvas, evt) {
-	var rect = canvas.getBoundingClientRect();
-	return {
-	  x: evt.clientX - rect.left,
-	  y: evt.clientY - rect.top
-	};
-}
-
 //Listens for user mouse input
 myCanvas.addEventListener('click', function(event) {
     var rect = myCanvas.getBoundingClientRect();
@@ -23,51 +7,37 @@ myCanvas.addEventListener('click', function(event) {
     var y = event.clientY - rect.top;
     console.log("CLICK: X: " + x + " Y: " + y); 
     //Start the game if it's first click
-    if(!gameStarted)
-    {
+    if(!gameStarted){
     	drawPokerTable();
     	startGame();
     	gameStarted = true;
-    	setTimeout(drawHitStay, 3000);
+    	drawHitStay();
     }
 	//Game has started    
-   	else
-   	{
-   		if(!gameOver)
-   		{
+   	else{
+   		if(!gameOver){
 	   		//Detect Hit hit box
-	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 &&!waiting)
-	   		{
-	   			waiting=true;
-	   			//if blackjack end the game
-	   			if(handsTotals[0]==21){
-	   				writeWinMessage();
-	   				gameOver=true;
-	   				waiting=false;
-	   			}
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 ){
 	   			//draw a card
-		   		setTimeout(function() {drawPlayerCard(0, numberOfPlayerCards);
-		   			waiting=true;
-		   			//if blackjack end the game		   			
+		   			drawPlayerCard(0, numberOfPlayerCards);
+		   			//if blackjack dealer gets a chance to push
 		   			if(handsTotals[0]==21){
-		   				writeWinMessage();
+		   				dealerPlay();
 		   				gameOver=true;
-		   				waiting=false;
 		   			}
-		   			//if bust end the game
+		   			//unless the player has an ace, bust and end the game
 					if(handsTotals[0]>21){
-						waiting=true;
-						//unless the player has an ace
+						//handle player's ace
 						if(numberOfAces>=1){
 							handsTotals[0]-=10;
 							numberOfAces--;
-							// writeMessage("Swapped ace, hand total now: "+handsTotals[0]);
 							drawHandTotalBox();
 							//If the player wins after switching ace
 							if(handsTotals[0]==21){
 				   				writeWinMessage();
 				   				gameOver=true;
-				   				waiting=false;
+				   				drawDealerCard(numberOfDealerCards);
+				   				drawDealerHandTotalBox();
 				   			}
 						}
 						//Busted
@@ -75,38 +45,31 @@ myCanvas.addEventListener('click', function(event) {
 							writeBustMessage();
 							writeLoseMessage();
 							gameOver = true;
-							waiting=false;
+			   				drawDealerCard(numberOfDealerCards);
+			   				drawDealerHandTotalBox();							
 						}	
 					}
-					waiting=false;
-				},1000);
 
 	   		}
 	   		//Detect Stay hit box
-	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975 &&!waiting)
-	   		{
-	   			waiting=true;
+	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975){
 	   			//Start the dealer play algorithm
-	   			setTimeout(dealerPlay,200);
-	   			// writeMessage("Staying");
+	   			dealerPlay();
 	   		}
    		}
-   		else
-   		{
+   		else{
    			resetGame();
    		}
    	}
 
 }, false);
 
+
 //Dealer draws until 17 or bust
-function dealerPlay()
-{
-	waiting=true;
+function dealerPlay(){
 	if(dealerHandTotal < 17){
 		drawDealerCard(numberOfDealerCards);
-		// displayHandValues();
-	   	setTimeout(dealerPlay,1000);
+	   	dealerPlay();
 		return;		
 	}
 	if(dealerHandTotal > 21){
@@ -114,16 +77,13 @@ function dealerPlay()
 			dealerHandTotal-=10;
 			dealerNumberOfAces--;
 			drawDealerHandTotalBox();
-			// console.log( "\nDealer swaps the Ace's value to a 1.\n\n"); 
-			// console.log("Dealer Total:"+dealerHandTotal);
-	   		setTimeout(dealerPlay,1000);
+	   		dealerPlay();
 			return;
 		}
 		else{
 			writeWinMessage();
 			writeDealerBustMessage();
 			gameOver = true;
-			waiting=false;
 			return;	
 		}
 	}
@@ -131,20 +91,16 @@ function dealerPlay()
 		if(handsTotals[0] > dealerHandTotal){
 			writeWinMessage();
 			gameOver = true;
-			waiting=false;
 			return;
 		}
 		if(handsTotals[0] < dealerHandTotal){
 			writeLoseMessage();
 			gameOver = true;
-			waiting=false;
-
 			return;
 		}
 		else{
 			writeTieMessage();
 			gameOver = true;
-			waiting=false;
 			return;
 		}
 	}
@@ -152,3 +108,31 @@ function dealerPlay()
 
 
 
+//------------------------------------Drawing----------------------------------------//
+
+//Draws a card and adds it to the hand, then renders graphics
+function drawPlayerCard(hand, cardInHand){
+	hands[hand][cardInHand] = genRandomNumber();
+	handsTotals[hand] +=  getCardWeight(hands[hand][cardInHand]);
+	if(getCardWeight(hands[hand][cardInHand]) == 11){
+		numberOfAces++;
+	}
+	drawCard(cardSpacingMultipler*cardPosition, 0, hands[hand][cardInHand]);
+	numberOfPlayerCards++;
+	cardPosition++;
+	drawHandTotalBox();
+}
+
+//Dealer draws a card and adds it to the hand, then renders graphics
+function drawDealerCard(cardInHand){
+	dealerHand[cardInHand] = genRandomNumber();
+	dealerHandTotal += getCardWeight(dealerHand[cardInHand]);
+	if(getCardWeight(dealerHand[cardInHand]) == 11){
+		dealerNumberOfAces++;
+	}
+	drawCard(cardSpacingMultipler*dealerCardPosition, -(h/2), dealerHand[cardInHand]);
+	numberOfDealerCards++;
+	dealerCardPosition++;
+	drawDealerHandTotalBox();
+}
+//---------------------------------------------------------------------------------//
