@@ -72,6 +72,7 @@ myCanvas.addEventListener('click', function(event) {
 						//Busted
 						else{
 							writeBustMessage();
+							writeLoseMessage();
 							gameOver = true;
 							waiting=false;
 						}	
@@ -111,6 +112,7 @@ function dealerPlay()
 		if(dealerNumberOfAces>=1){
 			dealerHandTotal-=10;
 			dealerNumberOfAces--;
+			drawDealerHandTotalBox();
 			// console.log( "\nDealer swaps the Ace's value to a 1.\n\n"); 
 			// console.log("Dealer Total:"+dealerHandTotal);
 	   		setTimeout(dealerPlay,1000);
@@ -118,6 +120,7 @@ function dealerPlay()
 		}
 		else{
 			writeWinMessage();
+			writeDealerBustMessage();
 			gameOver = true;
 			waiting=false;
 			return;	

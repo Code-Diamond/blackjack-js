@@ -5,48 +5,69 @@ function writeBustMessage()
 {
 	draw.beginPath();
 	draw.fillStyle = "black";
-	draw.globalAlpha = 0.8;
-	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
-	draw.globalAlpha = 1.0;
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	// draw.globalAlpha = 1.0;
 	draw.save();
 
 	draw.beginPath();
-	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Cursive";
+	draw.fillStyle = "red";
+	draw.font = (w/48)+"px Monospace";
 	draw.textAlign = "center";
-	draw.fillText("BUSTED!", (w/2), (h/2)); 			
+	draw.fillText("BUSTED", (w/3.05), (h/1.65)); 			
+	draw.save();	
+}
+function writeDealerBustMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/3.8),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/3.8),(w/11.7),(h/14))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "red";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("BUSTED", (w/3.05), (h/3.15)); 			
 	draw.save();	
 }
 function writeWinMessage()
 {
 	draw.beginPath();
 	draw.fillStyle = "black";
-	draw.globalAlpha = 0.8;
-	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
-	draw.globalAlpha = 1.0;
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	// draw.globalAlpha = 1.0;
 	draw.save();
 
 	draw.beginPath();
-	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Cursive";
+	draw.fillStyle = "lightgreen";
+	draw.font = (w/48)+"px Monospace";
 	draw.textAlign = "center";
-	draw.fillText("WINNER!", (w/2), (h/2)); 			
+	draw.fillText("WINNER", (w/3.05), (h/1.65)); 			
 	draw.save();	
 }
 function writeLoseMessage()
 {
 	draw.beginPath();
 	draw.fillStyle = "black";
-	draw.globalAlpha = 0.8;
-	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
-	draw.globalAlpha = 1.0;
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/3.8),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/3.8),(w/11.7),(h/14))
+	// draw.globalAlpha = 1.0;
 	draw.save();
 
+	//Writes winner for the dealer
 	draw.beginPath();
-	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Cursive";
+	draw.fillStyle = "lightgreen";
+	draw.font = (w/48)+"px Monospace";
 	draw.textAlign = "center";
-	draw.fillText("You lose.", (w/2), (h/2)); 			
+	draw.fillText("WINNER", (w/3.05), (h/3.15)); 			
 	draw.save();	
 }
 function writeTieMessage()
@@ -60,9 +81,9 @@ function writeTieMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Cursive";
+	draw.font = (w/12)+"px Monospace";
 	draw.textAlign = "center";
-	draw.fillText("Tie Game.", (w/2), (h/2)); 			
+	draw.fillText("Push.", (w/2), (h/2)); 			
 	draw.save();	
 }
 function writeGameFinishedMessage()
@@ -76,7 +97,7 @@ function writeGameFinishedMessage()
 
 	draw.beginPath();
 	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Cursive";
+	draw.font = (w/12)+"px Monospace";
 	draw.textAlign = "center";
 	draw.fillText("Game Finished.", (w/2), (h/2)); 			
 	draw.save();	
@@ -93,7 +114,7 @@ function drawHandTotalBox()
 		
 		draw.beginPath();
 		draw.fillStyle = "yellow";
-		draw.font = (w/20)+"px Cursive";
+		draw.font = (w/20)+"px Monospace";
 		draw.textAlign = "center";
 		draw.fillText(handsTotals[0], (w/3.05), (h/1.4)); 			
 		draw.save();		
@@ -111,7 +132,7 @@ function drawDealerHandTotalBox()
 	
 		draw.beginPath();
 		draw.fillStyle = "yellow";
-		draw.font = (w/20)+"px Cursive";
+		draw.font = (w/20)+"px Monospace";
 		draw.textAlign = "center";
 		draw.fillText(dealerHandTotal, (w/3.05), (h/4)); 			
 		draw.save();			
@@ -144,7 +165,7 @@ function drawPokerTable()
 	draw.save()	
 
 	draw.beginPath();
-	draw.font = fontMultiplier*2+"px Cursive";
+	draw.font = fontMultiplier*2+"px Monospace";
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
 	draw.fillText("BLACKJACK", w/2, h/2.15); 
@@ -177,14 +198,14 @@ function drawCard(x,y,i)
 	}
 
 	//Write Card Letter
-	draw.font = fontMultiplier+"px Cursive";
+	draw.font = fontMultiplier+"px Monospace";
 	draw.textAlign = "center";
 	draw.fillText(getCardDetails(i), (w/14)+x, (h/1.55)+y); 			
 	draw.save();
 
 	//Write Card Letter Bottom Right Upside Down
 	draw.beginPath();
-	draw.font = fontMultiplier+"px Cursive";
+	draw.font = fontMultiplier+"px Monospace";
 	draw.textAlign = "center";
     draw.translate(20, 50);
 	draw.rotate(180 * Math.PI / 180);
@@ -196,7 +217,7 @@ function drawCard(x,y,i)
 	if(suit==1)
 	{
 		//Top Left Suit
-		draw.font = (secondFontMultiplier)+"px Cursive";
+		draw.font = (secondFontMultiplier)+"px Monospace";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
 		draw.fillText("\u2660", (w/14)+x,(h/1.45)+y); 			
@@ -211,7 +232,7 @@ function drawCard(x,y,i)
 	if(suit==2)
 	{
 		//Top Left Suit
-		draw.font = (secondFontMultiplier)+"px Cursive";
+		draw.font = (secondFontMultiplier)+"px Monospace";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
 		draw.fillText("\u2666", (w/14)+x,(h/1.45)+y); 			
@@ -226,7 +247,7 @@ function drawCard(x,y,i)
 	if(suit==3)
 	{
 		//Top Left Suit				
-		draw.font = (secondFontMultiplier)+"px Cursive";
+		draw.font = (secondFontMultiplier)+"px Monospace";
 		draw.fillStyle = "black";
 		draw.textAlign = "center";
 		draw.fillText("\u2663", (w/14)+x,(h/1.45)+y); 			
@@ -241,7 +262,7 @@ function drawCard(x,y,i)
 	if(suit==4)
 	{
 		//Top Left Suit				
-		draw.font = (secondFontMultiplier)+"px Cursive";
+		draw.font = (secondFontMultiplier)+"px Monospace";
 		draw.fillStyle = "red";
 		draw.textAlign = "center";
 		draw.fillText("\u2764", (w/14)+x,(h/1.45)+y); 			
@@ -269,7 +290,7 @@ function drawHitStay()
 	draw.save();	
 	//Hit Text
 	draw.beginPath();
-	draw.font = (fontMultiplier)+"px Cursive";
+	draw.font = (fontMultiplier)+"px Monospace";
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
 	draw.fillText("HIT", (w/8.8),(h/1.4)); 			
@@ -285,7 +306,7 @@ function drawHitStay()
 	draw.save();
 	//Stay Text
 	draw.beginPath();
-	draw.font = (fontMultiplier)+"px Cursive";
+	draw.font = (fontMultiplier)+"px Monospace";
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
 	draw.fillText("STAY", (w/4.8),(h/1.4)); 			

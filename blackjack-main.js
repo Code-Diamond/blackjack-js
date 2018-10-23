@@ -29,8 +29,7 @@ var dealerHandTotal = 0;
 var dealerNumberOfAces = 0;
 var dealerCardPosition=10;
 var numberOfDealerCards=0;
-
-
+//Used for handling excess user clicks
 var waiting = false;
 
 //---------------------------------------------------------------------------------
@@ -62,8 +61,6 @@ function resetGame()
 	dealerNumberOfAces = 0;
 	dealerCardPosition=10;
 	numberOfDealerCards=0;
-
-
 
 	setupCanvas();
 	drawPokerTable();	
@@ -174,11 +171,21 @@ function startGame(){
 	setTimeout(function() {drawDealerCard(numberOfDealerCards);}, 3000);
 	setTimeout(drawDealerHandTotalBox,3000);
 	setTimeout(function(){waiting=false;},3000)
-	if(handsTotals[0]==21)
-	{
-		writeWinMessage();
-		gameOver = true;
-	}
+	setTimeout(function(){
+		//Handle blackjack
+		if(handsTotals[0]==21)
+		{
+			writeWinMessage();
+			gameOver = true;
+		}
+		//handle double aces
+		if(handsTotals[0]==22)
+		{
+			handsTotals[0]-=10;
+			drawHandTotalBox();
+		}
+	},3000);
+
 }
 
 
