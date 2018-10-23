@@ -344,3 +344,22 @@ function drawHitStay()
 	draw.fillText("STAY", (w/4.8),(h/1.4)); 			
 	draw.save()		
 }
+function drawSplitBox()
+{
+	//Split Button
+	draw.beginPath();
+	draw.fillStyle = "#68380e";
+	draw.fillRect((w/8.25),(h/2.7),(w/12),(h/5));
+	draw.lineWidth="3"
+	draw.strokeStyle="black";
+	draw.rect((w/8.25),(h/2.7),(w/12),(h/5));
+	draw.stroke();
+	draw.save();	
+	//Split Text
+	draw.beginPath();
+	draw.font = (fontMultiplier)+"px Monospace";
+	draw.fillStyle = "white";
+	draw.textAlign = "center";
+	draw.fillText("SPLIT", (w/6.15),(h/2.05)); 			
+	draw.save()
+}

@@ -155,7 +155,10 @@ function startGame(){
 	// if(detectSplittable())
 	// {
 	// 	splitHand();
+	//  drawSplitBox();
 	// }
+
+
 	//Handle blackjack
 	if(handsTotals[0]==21){
 		writeWinMessage();
