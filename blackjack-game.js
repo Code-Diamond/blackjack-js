@@ -19,36 +19,14 @@ myCanvas.addEventListener('click', function(event) {
 	   		//Detect Hit hit box
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 ){
 	   			//draw a card
-		   			drawPlayerCard(0, numberOfPlayerCards);
-		   			//if blackjack dealer gets a chance to push
-		   			if(handsTotals[0]==21){
-		   				dealerPlay();
-		   				gameOver=true;
-		   			}
-		   			//unless the player has an ace, bust and end the game
-					if(handsTotals[0]>21){
-						//handle player's ace
-						if(numberOfAces>=1){
-							handsTotals[0]-=10;
-							numberOfAces--;
-							drawHandTotalBox();
-							//If the player wins after switching ace
-							if(handsTotals[0]==21){
-				   				writeWinMessage();
-				   				gameOver=true;
-				   				drawDealerCard(numberOfDealerCards);
-				   				drawDealerHandTotalBox();
-				   			}
-						}
-						//Busted
-						else{
-							writeBustMessage();
-							writeLoseMessage();
-							gameOver = true;
-			   				drawDealerCard(numberOfDealerCards);
-			   				drawDealerHandTotalBox();							
-						}	
-					}
+	   			if(!splitted)
+	   			{
+	   				drawACard(0);
+	   			}
+	   			else
+	   			{
+		   			drawACard(1);
+	   			}
 
 	   		}
 	   		//Detect Stay hit box
@@ -64,6 +42,76 @@ myCanvas.addEventListener('click', function(event) {
 
 }, false);
 
+
+function drawACard(i)
+{
+	if(i==0){
+		drawPlayerCard(0, numberOfPlayerCards);
+		//if blackjack dealer gets a chance to push
+		if(handsTotals[0]==21){
+			dealerPlay();
+			gameOver=true;
+		}
+		//unless the player has an ace, bust and end the game
+		if(handsTotals[0]>21){
+			//handle player's ace
+			if(numberOfAces>=1){
+				handsTotals[0]-=10;
+				numberOfAces--;
+				drawHandTotalBox();
+				//If the player wins after switching ace
+				if(handsTotals[0]==21){
+	   				writeWinMessage();
+	   				gameOver=true;
+	   				drawDealerCard(numberOfDealerCards);
+	   				drawDealerHandTotalBox();
+	   			}
+			}
+			//Busted
+			else{
+				writeBustMessage();
+				writeLoseMessage();
+				gameOver = true;
+   				drawDealerCard(numberOfDealerCards);
+   				drawDealerHandTotalBox();							
+			}	
+		}		
+	}
+	else
+	{
+		drawPlayerCard(1, hand2NumberOfPlayerCards);
+		//if blackjack dealer gets a chance to push
+		if(handsTotals[1]==21){
+			dealerPlay();
+			gameOver=true;
+		}
+		//unless the player has an ace, bust and end the game
+		if(handsTotals[1]>21){
+			//handle player's ace
+			if(hand2NumberOfAces>=1){
+				handsTotals[1]-=10;
+				hand2NumberOfAces--;
+				drawHandTotalBox();
+				//If the player wins after switching ace
+				if(handsTotals[1]==21){
+	   				writeWinMessage();
+	   				gameOver=true;
+	   				drawDealerCard(numberOfDealerCards);
+	   				drawDealerHandTotalBox();
+	   			}
+			}
+			//Busted
+			else{
+				writeBustMessage();
+				writeLoseMessage();
+				gameOver = true;
+   				drawDealerCard(numberOfDealerCards);
+   				drawDealerHandTotalBox();							
+			}	
+		}		
+	}
+
+}
 
 //Dealer draws until 17 or bust
 function dealerPlay(){
@@ -131,7 +179,7 @@ function drawPlayerCard(hand, cardInHand){
 		if(getCardWeight(hands[hand][cardInHand]) == 11){
 			hand2NumberOfAces++;
 		}
-		drawCard(cardSpacingMultipler*hand2CardPosition, 0, hands[hand][cardInHand]);
+		drawCard(cardSpacingMultipler*hand2CardPosition, h/5, hands[hand][cardInHand]);
 		hand2NumberOfPlayerCards++;
 		hand2CardPosition++;
 		drawHandTotalBox();

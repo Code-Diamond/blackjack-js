@@ -38,6 +38,8 @@ var dealerCardPosition=10;
 var numberOfDealerCards=0;
 
 
+var splitted = false;
+
 
 //---------------------------------------------------------------------------------
 
@@ -72,6 +74,8 @@ function resetGame(){
 	dealerNumberOfAces = 0;
 	dealerCardPosition=10;
 	numberOfDealerCards=0;
+
+	splitted = false;
 
 	setupCanvas();
 	drawPokerTable();	
@@ -131,7 +135,7 @@ function splitHand(){
 		j++;
 	}
 	for(var i = 0; i < hand2NumberOfPlayerCards; i++){
-		drawCard(cardSpacingMultipler*k, (h/6), hands[1][i]);
+		drawCard(cardSpacingMultipler*k, (h/5), hands[1][i]);
 		k++;
 	}	
 	j=10
@@ -142,6 +146,8 @@ function splitHand(){
 
 	drawHandTotalBox();
 	drawHitStay();
+
+	splitted = true;
 
 }
 
@@ -155,7 +161,7 @@ function startGame(){
 	// if(detectSplittable())
 	// {
 	// 	splitHand();
-	//  drawSplitBox();
+	//  	drawSplitBox();
 	// }
 
 
@@ -191,7 +197,7 @@ function resizeWindow(){
 		j++;
 	}
 	for(var i = 0; i < hand2NumberOfPlayerCards; i++){
-		drawCard(cardSpacingMultipler*k, (h/4), hands[1][i]);
+		drawCard(cardSpacingMultipler*k, h/5, hands[1][i]);
 		k++;
 	}	
 	j=10	
