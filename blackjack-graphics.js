@@ -91,7 +91,7 @@ function writeGameFinishedMessage()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	draw.globalAlpha = 0.8;
-	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
+	draw.fillRect(w/8,h/3.8,w/1.35,h/3.8)
 	draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -204,13 +204,17 @@ function drawCard(x,y,i)
 	draw.save();
 
 	//Write Card Letter Bottom Right Upside Down
-	draw.beginPath();
-	draw.font = fontMultiplier+"px Monospace";
-	draw.textAlign = "center";
-    draw.translate(20, 50);
-	draw.rotate(180 * Math.PI / 180);
-	draw.fillText(getCardDetails(i), -(w/11)-x,-(h/1.45)-y); 			
-	draw.restore();
+	if(w>1024 && h>768)
+	{
+		draw.beginPath();
+		draw.font = fontMultiplier+"px Monospace";
+		draw.textAlign = "center";
+	    draw.translate(20, 50);
+		draw.rotate(180 * Math.PI / 180);
+		draw.fillText(getCardDetails(i), -(w/11)-x,-(h/1.45)-y); 			
+		draw.restore();		
+	}
+
 
 	//Write Card Suit
 	draw.beginPath();
@@ -223,11 +227,14 @@ function drawCard(x,y,i)
 		draw.fillText("\u2660", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
-		draw.beginPath();
-	    draw.translate(20, 50);
-		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2660", -(w/11)-x,-(h/1.55)-y); 			
-		draw.restore();
+		if(w>1024 && h>768)
+		{		
+			draw.beginPath();
+		    draw.translate(20, 50);
+			draw.rotate(180 * Math.PI / 180);
+			draw.fillText("\u2660", -(w/11)-x,-(h/1.55)-y); 			
+			draw.restore();
+		}
 	}
 	if(suit==2)
 	{
@@ -238,11 +245,14 @@ function drawCard(x,y,i)
 		draw.fillText("\u2666", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
-		draw.beginPath();
-	    draw.translate(20, 50);
-		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2666", -(w/11)-x,-(h/1.55)-y); 			
-		draw.restore();
+		if(w>1024 && h>768)
+		{
+			draw.beginPath();
+		    draw.translate(20, 50);
+			draw.rotate(180 * Math.PI / 180);
+			draw.fillText("\u2666", -(w/11)-x,-(h/1.55)-y); 			
+			draw.restore();
+		}
 	}
 	if(suit==3)
 	{
@@ -253,11 +263,14 @@ function drawCard(x,y,i)
 		draw.fillText("\u2663", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
-		draw.beginPath();
-	    draw.translate(20, 50);
-		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2663", -(w/11)-x,-(h/1.55)-y); 			
-		draw.restore();
+		if(w>1024 && h>768)
+		{	
+			draw.beginPath();
+		    draw.translate(20, 50);
+			draw.rotate(180 * Math.PI / 180);
+			draw.fillText("\u2663", -(w/11)-x,-(h/1.55)-y); 			
+			draw.restore();
+		}
 	}
 	if(suit==4)
 	{
@@ -268,11 +281,14 @@ function drawCard(x,y,i)
 		draw.fillText("\u2764", (w/14)+x,(h/1.45)+y); 			
 		draw.save()
 		//Write Card Suit Bottom Right
-		draw.beginPath();
-	    draw.translate(20, 50);
-		draw.rotate(180 * Math.PI / 180);
-		draw.fillText("\u2764", -(w/11)-x,-(h/1.55)-y); 			
-		draw.restore();
+		if(w>1024 && h>768)
+		{	
+			draw.beginPath();
+		    draw.translate(20, 50);
+			draw.rotate(180 * Math.PI / 180);
+			draw.fillText("\u2764", -(w/11)-x,-(h/1.55)-y); 			
+			draw.restore();
+		}
 	}
 	draw.save();
 }
