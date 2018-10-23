@@ -17,11 +17,18 @@ var gameOver = false;
 
 //Player's hands and hand totals
 var hands = [[]];
+hand1 = new Array();
+hands.push(hand1);
+
 var handsTotals = [];
-handsTotals[0] = 0; handsTotals[1] = 0; handsTotals[2] = 0; handsTotals[3] = 0;
+handsTotals[0] = 0; handsTotals[1] = 0; 
 var numberOfAces=0;
 var numberOfPlayerCards=0;
 var cardPosition=10;
+
+var hand2CardPosition=10;
+var hand2NumberOfPlayerCards=0;
+var hand2NumberOfAces =0 ;
 
 //Dealer's hand and hand total
 var dealerHand = [];
@@ -29,6 +36,8 @@ var dealerHandTotal = 0;
 var dealerNumberOfAces = 0;
 var dealerCardPosition=10;
 var numberOfDealerCards=0;
+
+
 
 //---------------------------------------------------------------------------------
 
@@ -47,10 +56,15 @@ function resetGame(){
 	//Player's hands and hand totals
 	hands = [[]];
 	handsTotals = [];
-	handsTotals[0] = 0; handsTotals[1] = 0; handsTotals[2] = 0; handsTotals[3] = 0;
+	handsTotals[0] = 0; handsTotals[1] = 0;
 	numberOfAces=0;
 	numberOfPlayerCards=0;
 	cardPosition=10;
+
+	hand2CardPosition=10;
+	hand2NumberOfPlayerCards=0;
+	hand2NumberOfAces =0 ;
+
 
 	//Dealer's hand and hand total
 	dealerHand = [];
@@ -87,6 +101,50 @@ function getCardSuit(x){
 	switch(x){case 1: return "1"; case 2: return "2"; case 3: return "3"; case 4: return "4"; case 5: return "1"; case 6: return "2"; case 7: return "3"; case 8: return "4"; case 9: return "1"; case 10: return "2"; case 11: return "3"; case 12: return "4"; case 13: return "1"; case 14: return "2"; case 15: return "3"; case 16: return "4"; case 17: return "1"; case 18: return "2"; case 19: return "3"; case 20: return "4"; case 21: return "1"; case 22: return "2"; case 23: return "3"; case 24: return "4"; case 25: return "1"; case 26: return "2"; case 27: return "3"; case 28: return "4"; case 29: return "1"; case 30: return "2"; case 31: return "3"; case 32: return "4"; case 33: return "1"; case 34: return "2"; case 35: return "3"; case 36: return "4"; case 37: return "1"; case 38: return "2"; case 39: return "3"; case 40: return "4"; case 41: return "1"; case 42: return "2"; case 43: return "3"; case 44: return "4"; case 45: return "1"; case 46: return "2"; case 47: return "3"; case 48: return "4"; case 49: return "1"; case 50: return "2"; case 51: return "3"; case 52: return "4"; default: return ""; }
 }
 
+function detectSplittable(){
+	if(getCardDetails(hands[0][0]) == getCardDetails(hands[0][1])){
+		return true;
+	}
+}
+function splitHand(){
+	hand2 = new Array();
+	hand2[0] = 0;
+	hands.push(hand2);	
+	hands[1][0] = hands[0][1];
+	handsTotals[1] = getCardWeight(hands[1][0]);
+
+	console.log("second hand: " + handsTotals[1]);
+	hands[0].splice(-1,1);
+	numberOfPlayerCards--;
+	cardPosition--;
+	hand2NumberOfPlayerCards++;
+	hand2CardPosition++;
+
+	drawPlayerCard(0,numberOfPlayerCards);
+	handsTotals[0] = getCardWeight(hands[0][0]) + getCardWeight(hands[0][1]);
+
+	drawPokerTable();
+	var k = 10;
+	var j = 10;
+	for(var i = 0; i < numberOfPlayerCards; i++){
+		drawCard(cardSpacingMultipler*j, 0, hands[0][i]);
+		j++;
+	}
+	for(var i = 0; i < hand2NumberOfPlayerCards; i++){
+		drawCard(cardSpacingMultipler*k, (h/6), hands[1][i]);
+		k++;
+	}	
+	j=10
+	for(var i = 0; i < numberOfDealerCards; i++){
+		drawCard(cardSpacingMultipler*j, -(h/2), dealerHand[i]);
+		j++;
+	}
+
+	drawHandTotalBox();
+	drawHitStay();
+
+}
+
 //Start the game
 function startGame(){
 	console.log("Game Started!");
@@ -94,6 +152,10 @@ function startGame(){
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
+	// if(detectSplittable())
+	// {
+	// 	splitHand();
+	// }
 	//Handle blackjack
 	if(handsTotals[0]==21){
 		writeWinMessage();
@@ -116,26 +178,35 @@ function resizeWindow(){
 	fontMultiplier = ""+w/40;
 	secondFontMultiplier = ""+w/50;
 	cardSpacingMultipler = w/30;
-
+	//table
 	drawPokerTable();
+	//cards
+	var k = 10;
 	var j = 10;
 	for(var i = 0; i < numberOfPlayerCards; i++){
 		drawCard(cardSpacingMultipler*j, 0, hands[0][i]);
 		j++;
 	}
-	j=10
+	for(var i = 0; i < hand2NumberOfPlayerCards; i++){
+		drawCard(cardSpacingMultipler*k, (h/4), hands[1][i]);
+		k++;
+	}	
+	j=10	
 	for(var i = 0; i < numberOfDealerCards; i++){
 		drawCard(cardSpacingMultipler*j, -(h/2), dealerHand[i]);
 		j++;
 	}
+	//value and option boxes
 	if(gameStarted){
 		drawHitStay();
 		drawHandTotalBox();
 		drawDealerHandTotalBox();
 	}
 	if(gameOver){
+		//resize finished message
 		writeGameFinishedMessage();
 	}
+
 }
 
 

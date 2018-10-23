@@ -112,15 +112,31 @@ function dealerPlay(){
 
 //Draws a card and adds it to the hand, then renders graphics
 function drawPlayerCard(hand, cardInHand){
-	hands[hand][cardInHand] = genRandomNumber();
-	handsTotals[hand] +=  getCardWeight(hands[hand][cardInHand]);
-	if(getCardWeight(hands[hand][cardInHand]) == 11){
-		numberOfAces++;
+	if(hand == 0)
+	{
+		hands[hand][cardInHand] = genRandomNumber();
+		handsTotals[hand] +=  getCardWeight(hands[hand][cardInHand]);
+		if(getCardWeight(hands[hand][cardInHand]) == 11){
+			numberOfAces++;
+		}
+		drawCard(cardSpacingMultipler*cardPosition, 0, hands[hand][cardInHand]);
+		numberOfPlayerCards++;
+		cardPosition++;
+		drawHandTotalBox();		
 	}
-	drawCard(cardSpacingMultipler*cardPosition, 0, hands[hand][cardInHand]);
-	numberOfPlayerCards++;
-	cardPosition++;
-	drawHandTotalBox();
+	else
+	{
+		hands[hand][cardInHand] = genRandomNumber();
+		handsTotals[hand] +=  getCardWeight(hands[hand][cardInHand]);
+		if(getCardWeight(hands[hand][cardInHand]) == 11){
+			hand2NumberOfAces++;
+		}
+		drawCard(cardSpacingMultipler*hand2CardPosition, 0, hands[hand][cardInHand]);
+		hand2NumberOfPlayerCards++;
+		hand2CardPosition++;
+		drawHandTotalBox();
+	}
+
 }
 
 //Dealer draws a card and adds it to the hand, then renders graphics
