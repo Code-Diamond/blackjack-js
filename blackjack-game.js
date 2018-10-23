@@ -25,6 +25,7 @@ myCanvas.addEventListener('click', function(event) {
     //Start the game if it's first click
     if(!gameStarted)
     {
+    	drawPokerTable();
     	startGame();
     	gameStarted = true;
     	setTimeout(drawHitStay, 3000);

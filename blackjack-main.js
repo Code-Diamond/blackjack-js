@@ -193,3 +193,4 @@ function startGame(){
 
 setupCanvas();
 drawPokerTable();
+writeClickToPlayMessage();

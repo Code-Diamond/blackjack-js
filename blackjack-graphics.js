@@ -86,6 +86,22 @@ function writeTieMessage()
 	draw.fillText("Push.", (w/2), (h/2)); 			
 	draw.save();	
 }
+function writeClickToPlayMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	draw.globalAlpha = 0.5;
+	draw.fillRect(w/4,h/1.8,w/2,h/6)
+	draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/18)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("Click to play.", (w/2), (h/1.5)); 			
+	draw.save();	
+}
 function writeGameFinishedMessage()
 {
 	draw.beginPath();
