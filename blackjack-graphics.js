@@ -168,7 +168,7 @@ function drawPokerTable()
 	draw.font = fontMultiplier*2+"px Monospace";
 	draw.fillStyle = "white";
 	draw.textAlign = "center";
-	draw.fillText("BLACKJACK", w/2, h/2.15); 
+	draw.fillText("BLACKJACK", w/1.98, h/2.13); 
 	draw.save()
 }
 //Draws a card
