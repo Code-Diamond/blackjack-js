@@ -20,7 +20,30 @@ myCanvas.addEventListener('click', function(event) {
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/14 && x < w/6.5 ){
 	   			//draw a card
 	   			if(!splitted)
-	   			{
+	   			{	   		
+	   				//TODO------make seperatefunction----v
+						drawPokerTable();
+						var k = 10;
+						var j = 10;
+						for(var i = 0; i < numberOfPlayerCards; i++){
+							drawCard(cardSpacingMultipler*j, 0, hands[0][i]);
+							j++;
+						}
+						for(var i = 0; i < hand2NumberOfPlayerCards; i++){
+							drawCard(cardSpacingMultipler*k, (h/5), hands[1][i]);
+							k++;
+						}	
+						j=10
+						for(var i = 0; i < numberOfDealerCards; i++){
+							drawCard(cardSpacingMultipler*j, -(h/2), dealerHand[i]);
+							j++;
+						}
+
+						drawHandTotalBox();
+						drawDealerHandTotalBox();
+						drawHitStay();	   	
+					//TODO------make seperatefunction----^
+
 	   				drawACard(0);
 	   			}
 	   			else
@@ -55,6 +78,10 @@ myCanvas.addEventListener('click', function(event) {
 	   				}
 	   			}
 	   		}
+	   		//Detect Split hit box
+	   		if( y > h/2.7 && y < h/1.74 && x> w/8.25 && x < w/4.85 && !splitted && numberOfPlayerCards <= 2 && detectSplittable()){
+				splitHand();
+	   		}	   		
    		}
    		else{
    			resetGame();
@@ -204,7 +231,7 @@ function dealerPlay(){
 			return;
 		}
 		else{
-			if((handsTotal[0] == dealerHandTotal || handsTotal[1] == dealerHandTotal) && (dealerTotal >= handsTotals[0] && dealerTotals >= handsTotals[1]))
+			if((handsTotals[0] == dealerHandTotal || handsTotals[1] == dealerHandTotal) && (dealerHandTotal >= handsTotals[0] && dealerHandTotal >= handsTotals[1]))
 			{
 				writeTieMessage();
 				gameOver = true;

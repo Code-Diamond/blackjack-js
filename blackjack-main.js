@@ -167,11 +167,10 @@ function startGame(){
 
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
-	// if(detectSplittable())
-	// {
-	// 	splitHand();
-	//  	drawSplitBox();
-	// }
+	if(detectSplittable())
+	{
+	 	drawSplitBox();
+	}
 
 
 	//Handle blackjack
