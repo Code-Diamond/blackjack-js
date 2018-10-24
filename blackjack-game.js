@@ -270,7 +270,7 @@ function drawPlayerCard(hand, cardInHand){
 		drawCard(cardSpacingMultipler*hand2CardPosition, h/5, hands[hand][cardInHand]);
 		hand2NumberOfPlayerCards++;
 		hand2CardPosition++;
-		drawHandTotalBox();
+		drawHand2TotalBox();
 	}
 
 }
