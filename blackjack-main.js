@@ -172,18 +172,20 @@ function startGame(){
 	 	drawSplitBox();
 	}
 
-
 	//Handle blackjack
 	if(handsTotals[0]==21){
 		writeWinMessage();
 		gameOver = true;
 	}
-	//handle double aces
-	if(handsTotals[0]==22){
+	//Handle double aces
+	if(handsTotals[0]==22)
+	{
 		handsTotals[0]-=10;
-		numberOfAces--;
 		drawHandTotalBox();
+		numberOfAces--;
+
 	}
+
 }
 
 //Function that handles resize event
