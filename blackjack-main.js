@@ -164,6 +164,7 @@ function startGame(){
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawPlayerCard(0,numberOfPlayerCards);
 	// drawPlayerPair();
+
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
 	// if(detectSplittable())
@@ -181,6 +182,7 @@ function startGame(){
 	//handle double aces
 	if(handsTotals[0]==22){
 		handsTotals[0]-=10;
+		numberOfAces--;
 		drawHandTotalBox();
 	}
 }
