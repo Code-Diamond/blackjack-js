@@ -132,6 +132,11 @@ function splitHand(){
 
 	drawPlayerCard(0,numberOfPlayerCards);
 	handsTotals[0] = getCardWeight(hands[0][0]) + getCardWeight(hands[0][1]);
+	if(handsTotals[0] == 22)
+	{
+		numberOfAces--;
+		handsTotals[0]-=10;
+	}
 
 	drawPokerTable();
 	var k = 10;
@@ -151,6 +156,7 @@ function splitHand(){
 	}
 
 	drawHandTotalBox();
+	drawHand2TotalBox();
 	drawHitStay();
 
 	splitted = true;
@@ -217,6 +223,14 @@ function resizeWindow(){
 	}
 	//value and option boxes
 	if(gameStarted){
+		if(detectSplittable() && !splitted)
+		{
+			drawSplitBox();
+		}
+		if(handsTotals[1]>0)
+		{
+			drawHand2TotalBox();
+		}
 		drawHitStay();
 		drawHandTotalBox();
 		drawDealerHandTotalBox();

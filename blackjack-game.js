@@ -71,6 +71,7 @@ myCanvas.addEventListener('click', function(event) {
 	   				if(!secondHandStarted)
 	   				{
 		   				playSecondHand();
+						drawHandTotalBox();
 	   				}
 	   				else
 	   				{
@@ -104,6 +105,7 @@ function drawACard(i)
 		if(handsTotals[0]>21){
 			//handle player's ace
 			if(numberOfAces>=1){
+
 				handsTotals[0]-=10;
 				numberOfAces--;
 				drawHandTotalBox();
@@ -123,14 +125,14 @@ function drawACard(i)
    				drawDealerCard(numberOfDealerCards);
    				drawDealerHandTotalBox();							
 			}	
-		}		
+		}
+
 	}
 	if(i==1)
 	{
 		if(handsTotals[0]<21)
 		{
 			drawPlayerCard(0, numberOfPlayerCards);
-			return;
 		}
 		//if blackjack dealer gets a chance to push
 		if(handsTotals[0]==21){
