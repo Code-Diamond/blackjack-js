@@ -164,7 +164,7 @@ function playSecondHand(){
 			// gameOver = true;
 			drawDealerCard(numberOfDealerCards);
 			drawDealerHandTotalBox();							
-			dealerPlay();
+			gameOver=true;
 		}	
 	}	
 }
@@ -245,6 +245,27 @@ function drawPlayerCard(hand, cardInHand){
 		hand2CardPosition++;
 		drawHandTotalBox();
 	}
+
+}
+//for testing
+function drawPlayerPair()
+{
+	var num = genRandomNumber();
+	hands[0][1] = num;
+	hands[0][0] = num;
+		handsTotals[0] +=  getCardWeight(hands[0][1])+ getCardWeight(hands[0][0]);
+	if(getCardWeight(hands[0][0]) == 11){
+			numberOfAces++;
+			numberOfAces++;
+		}
+
+		drawCard(cardSpacingMultipler*cardPosition, 0, hands[0][0]);
+		numberOfPlayerCards++;
+		cardPosition++;
+		drawCard(cardSpacingMultipler*cardPosition, 0, hands[0][1]);
+		numberOfPlayerCards++;
+		cardPosition++;
+		drawHandTotalBox();		
 
 }
 

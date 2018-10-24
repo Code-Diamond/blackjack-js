@@ -118,6 +118,12 @@ function splitHand(){
 	hands[1][0] = hands[0][1];
 	handsTotals[1] = getCardWeight(hands[1][0]);
 
+	if(numberOfAces>=1)
+	{
+		numberOfAces--;
+		hand2NumberOfAces++;
+	}
+
 	console.log("second hand: " + handsTotals[1]);
 	hands[0].splice(-1,1);
 	numberOfPlayerCards--;
@@ -157,6 +163,7 @@ function startGame(){
 	console.log("Game Started!");
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawPlayerCard(0,numberOfPlayerCards);
+	// drawPlayerPair();
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
 	// if(detectSplittable())
