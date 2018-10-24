@@ -45,7 +45,14 @@ myCanvas.addEventListener('click', function(event) {
 	   			}
 	   			else
 	   			{
-	   				playSecondHand();
+	   				if(!secondHandStarted)
+	   				{
+		   				playSecondHand();
+	   				}
+	   				else
+	   				{
+	   					dealerPlay();
+	   				}
 	   			}
 	   		}
    		}
@@ -96,6 +103,7 @@ function drawACard(i)
 		if(handsTotals[0]<21)
 		{
 			drawPlayerCard(0, numberOfPlayerCards);
+			return;
 		}
 		//if blackjack dealer gets a chance to push
 		if(handsTotals[0]==21){
@@ -153,9 +161,10 @@ function playSecondHand(){
 		else{
 			writeBust2Message();
 			// writeLoseMessage();
-			gameOver = true;
+			// gameOver = true;
 			drawDealerCard(numberOfDealerCards);
 			drawDealerHandTotalBox();							
+			dealerPlay();
 		}	
 	}	
 }
@@ -184,7 +193,7 @@ function dealerPlay(){
 		}
 	}
 	else{
-		if(handsTotals[0] > dealerHandTotal || handsTotals[1] > dealerHandTotal){
+		if((handsTotals[0] > dealerHandTotal && handsTotals[0] <=21) || (handsTotals[1] > dealerHandTotal && handsTotals[1]<=21)){
 			writeWinMessage();
 			gameOver = true;
 			return;
@@ -195,9 +204,13 @@ function dealerPlay(){
 			return;
 		}
 		else{
-			writeTieMessage();
-			gameOver = true;
-			return;
+			if((handsTotal[0] == dealerHandTotal || handsTotal[1] == dealerHandTotal) && (dealerTotal >= handsTotals[0] && dealerTotals >= handsTotals[1]))
+			{
+				writeTieMessage();
+				gameOver = true;
+				return;				
+			}
+
 		}
 	}
 }

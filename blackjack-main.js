@@ -76,7 +76,8 @@ function resetGame(){
 	numberOfDealerCards=0;
 
 	splitted = false;
-
+	secondHandStarted = false;
+	
 	setupCanvas();
 	drawPokerTable();	
 	document.getElementById('myCanvas').click();	
