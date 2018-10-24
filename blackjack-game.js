@@ -25,14 +25,28 @@ myCanvas.addEventListener('click', function(event) {
 	   			}
 	   			else
 	   			{
-		   			drawACard(1);
+	   				if(!secondHandStarted)
+	   				{
+			   			drawACard(1);
+	   				}
+	   				else
+	   				{
+	   					playSecondHand();
+	   				}
 	   			}
 
 	   		}
 	   		//Detect Stay hit box
 	   		if( y > h/1.665  &&   y < h/1.245  && x > w/6 && x < w/3.975){
 	   			//Start the dealer play algorithm
-	   			dealerPlay();
+	   			if(!splitted)
+	   			{
+		   			dealerPlay();
+	   			}
+	   			else
+	   			{
+	   				playSecondHand();
+	   			}
 	   		}
    		}
    		else{
@@ -77,41 +91,75 @@ function drawACard(i)
 			}	
 		}		
 	}
-	else
+	if(i==1)
 	{
-		drawPlayerCard(1, hand2NumberOfPlayerCards);
+		if(handsTotals[0]<21)
+		{
+			drawPlayerCard(0, numberOfPlayerCards);
+		}
 		//if blackjack dealer gets a chance to push
-		if(handsTotals[1]==21){
-			dealerPlay();
-			gameOver=true;
+		if(handsTotals[0]==21){
+			playSecondHand();
 		}
 		//unless the player has an ace, bust and end the game
-		if(handsTotals[1]>21){
+		if(handsTotals[0]>21){
 			//handle player's ace
-			if(hand2NumberOfAces>=1){
-				handsTotals[1]-=10;
-				hand2NumberOfAces--;
+			if(numberOfAces>=1){
+				handsTotals[0]-=10;
+				numberOfAces--;
 				drawHandTotalBox();
 				//If the player wins after switching ace
-				if(handsTotals[1]==21){
-	   				writeWinMessage();
-	   				gameOver=true;
-	   				drawDealerCard(numberOfDealerCards);
-	   				drawDealerHandTotalBox();
+				if(handsTotals[0]==21){
+	   				playSecondHand();
 	   			}
 			}
 			//Busted
 			else{
-				writeBustMessage();
-				writeLoseMessage();
-				gameOver = true;
-   				drawDealerCard(numberOfDealerCards);
-   				drawDealerHandTotalBox();							
+				writeBustMessage();				
+				playSecondHand();
 			}	
-		}		
+		}	
 	}
 
 }
+
+//TODO catch dealer double aces on bust displaying 22 instead of 12
+
+function playSecondHand(){
+	secondHandStarted=true;
+	drawPlayerCard(1, hand2NumberOfPlayerCards);
+	//if blackjack dealer gets a chance to push
+	drawHand2TotalBox();	
+	if(handsTotals[1]==21){
+		dealerPlay();
+		gameOver=true;
+	}
+	//unless the player has an ace, bust and end the game
+	if(handsTotals[1]>21){
+		//handle player's ace
+		if(hand2NumberOfAces>=1){
+			handsTotals[1]-=10;
+			hand2NumberOfAces--;
+			drawHand2TotalBox();
+			//If the player wins after switching ace
+			if(handsTotals[1]==21){
+					writeWinMessage();
+					gameOver=true;
+					drawDealerCard(numberOfDealerCards);
+					drawDealerHandTotalBox();
+				}
+		}
+		//Busted
+		else{
+			writeBust2Message();
+			// writeLoseMessage();
+			gameOver = true;
+			drawDealerCard(numberOfDealerCards);
+			drawDealerHandTotalBox();							
+		}	
+	}	
+}
+
 
 //Dealer draws until 17 or bust
 function dealerPlay(){
@@ -136,12 +184,12 @@ function dealerPlay(){
 		}
 	}
 	else{
-		if(handsTotals[0] > dealerHandTotal){
+		if(handsTotals[0] > dealerHandTotal || handsTotals[1] > dealerHandTotal){
 			writeWinMessage();
 			gameOver = true;
 			return;
 		}
-		if(handsTotals[0] < dealerHandTotal){
+		if(handsTotals[0] < dealerHandTotal && handsTotals[1] < dealerHandTotal){
 			writeLoseMessage();
 			gameOver = true;
 			return;

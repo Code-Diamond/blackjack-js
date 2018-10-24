@@ -39,7 +39,7 @@ var numberOfDealerCards=0;
 
 
 var splitted = false;
-
+var secondHandStarted = false;
 
 //---------------------------------------------------------------------------------
 

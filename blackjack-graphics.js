@@ -18,6 +18,25 @@ function writeBustMessage()
 	draw.fillText("BUSTED", (w/3.05), (h/1.65)); 			
 	draw.save();	
 }
+
+function writeBust2Message()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "red";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("BUSTED", (w/3.05), (h/1.23)); 			
+	draw.save();	
+}
+
 function writeDealerBustMessage()
 {
 	draw.beginPath();
@@ -136,6 +155,25 @@ function drawHandTotalBox()
 		draw.save();		
 	}
 }
+
+function drawHand2TotalBox()
+{
+	if(handsTotals[0] != 0)
+	{
+		draw.beginPath();
+		draw.fillStyle = "black";
+		draw.fillRect((w/3.5),(h/1.2),(w/11.7),(h/10))
+		draw.save();
+		
+		draw.beginPath();
+		draw.fillStyle = "yellow";
+		draw.font = (w/20)+"px Monospace";
+		draw.textAlign = "center";
+		draw.fillText(handsTotals[1], (w/3.05), (h/1.09)); 			
+		draw.save();		
+	}
+}
+
 
 function drawDealerHandTotalBox()
 {
