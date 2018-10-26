@@ -6,8 +6,8 @@ function writeBustMessage()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -24,8 +24,8 @@ function writeBust2Message()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -41,8 +41,8 @@ function writeDefeatMessage()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -59,8 +59,8 @@ function writeDefeatMessage2()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -94,8 +94,8 @@ function writeWinMessage()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/14.6))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -111,8 +111,8 @@ function writeWinMessage2()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -129,8 +129,8 @@ function writePushMessage()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
-	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/13.6))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -146,8 +146,8 @@ function writePushMessage2()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/15.7))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
