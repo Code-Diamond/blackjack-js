@@ -169,6 +169,8 @@ function startGame(){
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawPlayerCard(0,numberOfPlayerCards);
 	// drawPlayerPair();
+	// writeWinMessage2();
+	// drawHand2TotalBox();
 
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();

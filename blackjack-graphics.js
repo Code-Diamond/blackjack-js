@@ -71,6 +71,23 @@ function writeWinMessage()
 	draw.fillText("WINNER", (w/3.05), (h/1.65)); 			
 	draw.save();	
 }
+function writeWinMessage2()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/12.5))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "lightgreen";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("WINNER", (w/3.05), (h/1.22)); 			
+	draw.save();	
+}
 function writeLoseMessage()
 {
 	draw.beginPath();

@@ -279,7 +279,7 @@ function drawPlayerCard(hand, cardInHand){
 //for testing
 function drawPlayerPair()
 {
-	var num = 4;
+	var num = genRandomNumber();
 	hands[0][1] = num;
 	hands[0][0] = num;
 		handsTotals[0] +=  getCardWeight(hands[0][1])+ getCardWeight(hands[0][0]);
