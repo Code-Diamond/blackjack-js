@@ -166,9 +166,9 @@ function splitHand(){
 //Start the game
 function startGame(){
 	console.log("Game Started!");
-	// drawPlayerCard(0,numberOfPlayerCards);
-	// drawPlayerCard(0,numberOfPlayerCards);
-	drawPlayerPair();
+	drawPlayerCard(0,numberOfPlayerCards);
+	drawPlayerCard(0,numberOfPlayerCards);
+	// drawPlayerPair();
 
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
