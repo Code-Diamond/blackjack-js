@@ -272,6 +272,28 @@ function determineWinners(){
 		writeWinMessage2();
 		gameOver = true;		
 	}
+	//For resizing
+	if(dealerHandTotal > 21){
+		if(handsTotals[0] <= 21)
+		{
+			writeWinMessage();
+		}
+		if(handsTotals[1] <= 21&& handsTotals[1] >0)
+		{
+			writeWinMessage2();
+		}
+		writeDealerBustMessage();
+	}
+	if(handsTotals[0] > 21){
+		writeBustMessage();
+		if(dealerHandTotal <=21)
+		{
+			writeLoseMessage();
+		}
+	}		
+	if(handsTotals[1] > 21){
+		writeBust2Message();
+	}
 }
 
 

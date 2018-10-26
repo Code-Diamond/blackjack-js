@@ -169,8 +169,6 @@ function startGame(){
 	drawPlayerCard(0,numberOfPlayerCards);
 	drawPlayerCard(0,numberOfPlayerCards);
 	// drawPlayerPair();
-	// writeWinMessage2();
-	// drawHand2TotalBox();
 
 	drawDealerCard(numberOfDealerCards);
 	drawDealerHandTotalBox();
@@ -239,7 +237,10 @@ function resizeWindow(){
 	}
 	if(gameOver){
 		//resize finished message
-		writeGameFinishedMessage();
+		determineWinners();	
+	}
+	if(!gameStarted){
+		writeClickToPlayMessage();
 	}
 
 }
