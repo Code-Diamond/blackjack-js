@@ -36,6 +36,41 @@ function writeBust2Message()
 	draw.fillText("BUSTED", (w/3.05), (h/1.23)); 			
 	draw.save();	
 }
+function writeDefeatMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "red";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("LOSER", (w/3.05), (h/1.65)); 			
+	draw.save();	
+}
+
+function writeDefeatMessage2()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "red";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("LOSER", (w/3.05), (h/1.23)); 			
+	draw.save();	
+}
 
 function writeDealerBustMessage()
 {
@@ -76,8 +111,8 @@ function writeWinMessage2()
 	draw.beginPath();
 	draw.fillStyle = "black";
 	// draw.globalAlpha = 0.8;
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/12.5))
-	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
 	// draw.globalAlpha = 1.0;
 	draw.save();
 
@@ -88,6 +123,42 @@ function writeWinMessage2()
 	draw.fillText("WINNER", (w/3.05), (h/1.22)); 			
 	draw.save();	
 }
+
+function writePushMessage()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	draw.fillRect((w/3.5),(h/1.8),(w/11.7),(h/12.5))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("PUSH", (w/3.05), (h/1.65)); 			
+	draw.save();	
+}
+function writePushMessage2()
+{
+	draw.beginPath();
+	draw.fillStyle = "black";
+	// draw.globalAlpha = 0.8;
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	draw.fillRect((w/3.5),(h/1.3),(w/11.7),(h/14))
+	// draw.globalAlpha = 1.0;
+	draw.save();
+
+	draw.beginPath();
+	draw.fillStyle = "yellow";
+	draw.font = (w/48)+"px Monospace";
+	draw.textAlign = "center";
+	draw.fillText("PUSH", (w/3.05), (h/1.22)); 			
+	draw.save();	
+}
+
 function writeLoseMessage()
 {
 	draw.beginPath();
@@ -106,22 +177,7 @@ function writeLoseMessage()
 	draw.fillText("WINNER", (w/3.05), (h/3.15)); 			
 	draw.save();	
 }
-function writeTieMessage()
-{
-	draw.beginPath();
-	draw.fillStyle = "black";
-	draw.globalAlpha = 0.8;
-	draw.fillRect(w/6,h/3.8,w/1.45,h/3.8)
-	draw.globalAlpha = 1.0;
-	draw.save();
 
-	draw.beginPath();
-	draw.fillStyle = "yellow";
-	draw.font = (w/12)+"px Monospace";
-	draw.textAlign = "center";
-	draw.fillText("Push.", (w/2), (h/2)); 			
-	draw.save();	
-}
 function writeClickToPlayMessage()
 {
 	draw.beginPath();

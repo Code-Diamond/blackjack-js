@@ -82,6 +82,7 @@ myCanvas.addEventListener('click', function(event) {
 	   		//Detect Split hit box
 	   		if( y > h/2.7 && y < h/1.74 && x> w/8.25 && x < w/4.85 && !splitted && numberOfPlayerCards <= 2 && detectSplittable()){
 				splitHand();
+				drawDealerHandTotalBox();
 	   		}	   		
    		}
    		else{
@@ -115,6 +116,7 @@ function drawACard(i)
 	   				gameOver=true;
 	   				drawDealerCard(numberOfDealerCards);
 	   				drawDealerHandTotalBox();
+	   				determineWinners();
 	   			}
 			}
 			//Busted
@@ -123,7 +125,8 @@ function drawACard(i)
 				writeLoseMessage();
 				gameOver = true;
    				drawDealerCard(numberOfDealerCards);
-   				drawDealerHandTotalBox();							
+   				drawDealerHandTotalBox();		
+   				determineWinners();					
 			}	
 		}
 
@@ -180,10 +183,9 @@ function playSecondHand(){
 			drawHand2TotalBox();
 			//If the player wins after switching ace
 			if(handsTotals[1]==21){
-					writeWinMessage();
-					gameOver=true;
-					drawDealerCard(numberOfDealerCards);
+					dealerPlay();
 					drawDealerHandTotalBox();
+					determineWinners();
 				}
 		}
 		//Busted
@@ -191,8 +193,9 @@ function playSecondHand(){
 			writeBust2Message();
 			// writeLoseMessage();
 			// gameOver = true;
-			drawDealerCard(numberOfDealerCards);
-			drawDealerHandTotalBox();							
+			dealerPlay();
+			drawDealerHandTotalBox();
+			determineWinners();							
 			gameOver=true;
 		}	
 	}	
@@ -215,35 +218,61 @@ function dealerPlay(){
 			return;
 		}
 		else{
-			writeWinMessage();
+			if(handsTotals[0] <= 21)
+			{
+				writeWinMessage();
+			}
+			if(handsTotals[1] <= 21&& handsTotals[1] >0)
+			{
+				writeWinMessage2();
+			}
 			writeDealerBustMessage();
 			gameOver = true;
 			return;	
 		}
 	}
-	else{
-		if((handsTotals[0] > dealerHandTotal && handsTotals[0] <=21) || (handsTotals[1] > dealerHandTotal && handsTotals[1]<=21)){
-			writeWinMessage();
-			gameOver = true;
-			return;
-		}
-		if(handsTotals[0] < dealerHandTotal && handsTotals[1] < dealerHandTotal){
-			writeLoseMessage();
-			gameOver = true;
-			return;
-		}
-		else{
-			if((handsTotals[0] == dealerHandTotal || handsTotals[1] == dealerHandTotal) && (dealerHandTotal >= handsTotals[0] && dealerHandTotal >= handsTotals[1]))
-			{
-				writeTieMessage();
-				gameOver = true;
-				return;				
-			}
-
-		}
-	}
+	determineWinners();
+	drawDealerHandTotalBox();
 }
 
+function determineWinners(){
+	if(dealerHandTotal >= 17 && dealerHandTotal <=21 && dealerHandTotal == handsTotals[0]){
+	//write push for that hand
+		writePushMessage();
+		gameOver = true;		
+	}
+	if(dealerHandTotal >= 17 && dealerHandTotal <=21 && dealerHandTotal == handsTotals[1]){
+		//write push for that hand
+		writePushMessage2();
+		gameOver = true;		
+	}
+	if(dealerHandTotal >= 17 && dealerHandTotal <=21 && dealerHandTotal > handsTotals[0] && dealerHandTotal > handsTotals[1]){
+		//write dealer wins
+		writeLoseMessage();
+		gameOver = true;
+
+	}
+	if(dealerHandTotal > handsTotals[0] && dealerHandTotal <= 21 && dealerHandTotal >= 17){
+		//write defeat on hand 1
+		writeDefeatMessage();
+		gameOver = true;		
+	}
+	if(dealerHandTotal > handsTotals[1] && dealerHandTotal <= 21 && dealerHandTotal >= 17   && handsTotals[1] >0){
+		//write defeat on hand 2
+		writeDefeatMessage2();
+		gameOver = true;		
+	}
+	if(handsTotals[0] > dealerHandTotal && handsTotals[0] <= 21){
+		//write win for hand 1
+		writeWinMessage();
+		gameOver = true;		
+	}
+	if(handsTotals[1] > dealerHandTotal && handsTotals[1] <= 21 && handsTotals[1] >0){
+		//write win for hand 2
+		writeWinMessage2();
+		gameOver = true;		
+	}
+}
 
 
 //------------------------------------Drawing----------------------------------------//
