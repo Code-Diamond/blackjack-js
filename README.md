@@ -1,20 +1,20 @@
-#Blackjack in a browser created entirely in Javascript.
+# Blackjack in a browser created entirely in Javascript.
 
-Features:
+### Features:
 
-    Split hand play
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Split hand play
     
-    Resizable window
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Resizable window
     
-    Instant gameplay
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Instant gameplay
     
-    Unlimited card deck 
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp;  Unlimited card deck 
     
-    Ties lead to push
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Ties lead to push game
     
-    Dealer hits while lower than 17
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Dealer hits while lower than 17
     
-    Aces trade out to 1 when you reach over 21
+#### &nbsp;&nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; Aces trade out to 1 when you reach over 21
 
-Uses HTML5 Canvas.
+###### Uses HTML5 Canvas.
 
